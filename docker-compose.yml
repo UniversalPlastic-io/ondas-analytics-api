@@ -1,0 +1,81 @@
+# Ejemplo de despliegue 1 — API + MongoDB en contenedores.
+# Documentación: docs/deployment/01-docker-compose.md
+#
+#   cp .env.example .env      # y fija PORTAL_JWT_SECRET
+#   docker compose up -d --build
+#   docker compose run --rm seed        # usuarios y organizaciones iniciales
+#   docker compose run --rm backfill    # carga del read model (necesita el bucket)
+#   open http://localhost:3000/docs
+#
+# Compose interpola las variables desde .env, así que si MONGODB_URI apunta a
+# Atlas se usa ese valor y el contenedor de Mongo queda sin utilizar.
+
+name: ondas-analytics
+
+x-api-env: &api-env
+  NODE_ENV: production
+  PORT: 3000
+  MONGODB_URI: ${MONGODB_URI:-mongodb://mongo:27017}
+  MONGODB_DB: ${MONGODB_DB:-ondas_dataspace}
+  PORTAL_JWT_SECRET: ${PORTAL_JWT_SECRET:?define PORTAL_JWT_SECRET en .env}
+  PORTAL_JWT_EXPIRES_IN: ${PORTAL_JWT_EXPIRES_IN:-8h}
+  DATASPACE_S3_BUCKET: ${DATASPACE_S3_BUCKET:-universalplastic-sedia}
+  DATASPACE_S3_REGION: ${DATASPACE_S3_REGION:-eu-central-1}
+  DATASPACE_S3_ROOT_PREFIX: ${DATASPACE_S3_ROOT_PREFIX:-public/}
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    command: ["--quiet"]
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  api:
+    build:
+      context: .
+      target: runtime
+    restart: unless-stopped
+    environment: *api-env
+    ports:
+      - "${PORT:-3000}:3000"
+    volumes:
+      # Las gráficas generadas por /v1/analyses/run sobreviven al contenedor.
+      - plots:/app/output/plots
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  # Servicios de un solo uso. `target: build` porque seed y backfill se ejecutan
+  # con ts-node, que es dependencia de desarrollo y no está en la imagen final.
+  seed:
+    profiles: ["tools"]
+    build:
+      context: .
+      target: build
+    environment: *api-env
+    command: ["npm", "run", "seed"]
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  backfill:
+    profiles: ["tools"]
+    build:
+      context: .
+      target: build
+    environment: *api-env
+    command: ["npm", "run", "backfill"]
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  mongo-data:
+  plots:

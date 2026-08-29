@@ -1,0 +1,102 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "locn": "http://www.w3.org/ns/locn#",
+    "schema": "https://schema.org/"
+  },
+  "@id": "urn:gaia:ondas:schema:boya_biomasa_slx+",
+  "@type": [
+    "dcat:Dataset",
+    "schema:Dataset"
+  ],
+  "dct:identifier": "boya_biomasa_slx+",
+  "dct:title": {
+    "@language": "es",
+    "@value": "Esquema de dataset: Biomasa de peces (Boya Satlink SLX+)"
+  },
+  "dct:description": {
+    "@language": "es",
+    "@value": "Esquema público (DCAT JSON-LD) que describe las variables/columnas esperadas para el dataset anual de biomasa de peces capturado por boya Satlink SLX+. Los participantes deben usar `schema:variableMeasured` como diccionario de campos; los metadatos de instancia (publisher/contact/licencia/spatial/temporal/issued, etc.) se envían en el asset anual subido a S3."
+  },
+  "dct:language": "es",
+  "dcat:keyword": [
+    "fish biomass",
+    "acoustic echosounder",
+    "marine monitoring",
+    "water column",
+    "depth range",
+    "Badalona",
+    "Mediterranean Sea",
+    "Spain",
+    "Fish abundance and distribution"
+  ],
+  "dcat:distribution": {
+    "@type": "dcat:Distribution",
+    "dct:title": "dataset_annual",
+    "dct:format": "JSON",
+    "dcat:mediaType": {
+      "@id": "https://www.iana.org/assignments/media-types/application/json"
+    }
+  },
+  "schema:variableMeasured": [
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Date",
+      "schema:description": "encoding=YYYY-MM-DD; field_type=Date; value_type=iso8601"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Time",
+      "schema:description": "encoding=HH:MM:SS; field_type=Time; value_type=iso8601"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Biomass depth -3_-5 m",
+      "schema:description": "dimension=mass; field_type=Biomass depth -3 to -5 m; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=Tonnes; value_type=float",
+      "schema:unitText": "Tonnes",
+      "schema:alternateName": "Biomass depth -3 to -5 m"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Biomass depth -5.00_-8 m",
+      "schema:description": "dimension=mass; field_type=Biomass depth -5 to -8 m; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=Tonnes; value_type=float",
+      "schema:unitText": "Tonnes",
+      "schema:alternateName": "Biomass depth -5 to -8 m"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Biomass depth -8.00_-11 m",
+      "schema:description": "dimension=mass; field_type=Biomass depth -8 to -11 m; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=Tonnes; value_type=float",
+      "schema:unitText": "Tonnes",
+      "schema:alternateName": "Biomass depth -8 to -11 m"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Biomass depth -11.00_-16 m",
+      "schema:description": "dimension=mass; field_type=Biomass depth -11 to -16 m; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=Tonnes; value_type=float",
+      "schema:unitText": "Tonnes",
+      "schema:alternateName": "Biomass depth -11 to -16 m"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Biomass depth -16.00_-21 m",
+      "schema:description": "dimension=mass; field_type=Biomass depth -16 to -21 m; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=Tonnes; value_type=float",
+      "schema:unitText": "Tonnes",
+      "schema:alternateName": "Biomass depth -16 to -21 m"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Biomass depth -21.00_-29 m",
+      "schema:description": "dimension=mass; field_type=Biomass depth -21 to -29 m; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=Tonnes; value_type=float",
+      "schema:unitText": "Tonnes",
+      "schema:alternateName": "Biomass depth -21 to -29 m"
+    }
+  ]
+}

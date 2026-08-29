@@ -1,0 +1,368 @@
+{
+  "fileIdentifier": "weather-context-bouy-badalona",
+  "name": "Weather_context_bouy_badalona",
+  "language": "spa",
+  "characterSet": "utf8",
+  "hierarchyLevel": "dataset",
+  "status": "completed",
+  "dataUpdateFrequency": "asNeeded",
+  "description": "Datos de contexto meteorológico y oceanográfico extraídos de Copernicus Marine Service (CMEMS) para el punto de coordenadas de la boya en Badalona. Incluye variables atmosféricas (humedad, nubosidad, precipitación, viento, radiación solar, índice UV, presión, temperatura del aire), variables marinas (temperatura superficial del mar, salinidad, oleaje, corrientes) e índices climáticos (NAO, SO).",
+  "purpose": "Proporcionar contexto ambiental y oceanográfico para interpretar las mediciones de la boya en el marco del proyecto ONDAs.",
+  "project": "ONDAs",
+  "source": "PLASTIC BLUE ECONOMY S.L",
+  "citation": {
+    "authors": [
+      {
+        "individualName": "Adrià Gonzáles",
+        "organisation": "Universal Plastic"
+      }
+    ],
+    "publicationDate": null,
+    "title": "Datos de contexto meteorológico y oceanográfico - Boya Badalona - Proyecto ONDAs",
+    "identifier": null
+  },
+  "resourceContact": {
+    "individualName": "Adrià Gonzáles",
+    "organisationName": "Universal Plastic",
+    "organisationROR": null,
+    "email": "adria.gonzalez@universalplastic.io",
+    "orcid": null,
+    "role": "principalInvestigator"
+  },
+  "metadataContact": {
+    "individualName": "Adrià Gonzáles",
+    "organisationName": "Universal Plastic",
+    "organisationROR": null,
+    "email": "adria.gonzalez@universalplastic.io",
+    "orcid": null,
+    "role": "pointOfContact"
+  },
+  "EX_Extent": {
+    "geographicElement": {
+      "EX_GeographicBoundingBox": {
+        "westBoundLongitude": 2.243317,
+        "eastBoundLongitude": 2.243317,
+        "southBoundLatitude": 41.434212,
+        "northBoundLatitude": 41.434212
+      }
+    },
+    "crs": "EPSG:4326",
+    "location_name": "Badalona",
+    "marine_region": "Mediterranean Sea",
+    "country_code": "ES",
+    "temporalElement": {
+      "start": null,
+      "end": null,
+      "frequency": null
+    }
+  },
+  "keywords": {
+    "theme": [
+      "meteorology",
+      "oceanography",
+      "sea surface temperature",
+      "salinity",
+      "wave height",
+      "ocean current",
+      "wind",
+      "atmospheric pressure",
+      "NAO index",
+      "marine monitoring"
+    ],
+    "place": [
+      "Badalona",
+      "Mediterranean Sea",
+      "Spain"
+    ]
+  },
+  "topicCategory": "environment",
+  "eov": null,
+  "lineage": {
+    "sampling": {
+      "method": "Extraction from reanalysis model at fixed GPS point",
+      "data_source": "Copernicus Marine Environment Monitoring Service (CMEMS)",
+      "data_source_url": "https://marine.copernicus.eu",
+      "extraction_type": "Point extraction at buoy coordinates",
+      "coordinates": [
+        41.434212,
+        2.243317
+      ],
+      "coordinates_encoding": "lat_lon_array"
+    },
+    "quality_control": {
+      "qc_level": "inherited from CMEMS",
+      "validated_by": null,
+      "validation_date": null
+    }
+  },
+  "distribution": {
+    "dataFormat": "CSV",
+    "metadataFormat": "JSON",
+    "accessLevel": "public",
+    "embargo_until": null,
+    "endpoint": null,
+    "license": {
+      "id": "CC-BY-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "useLimitations": "Cite source: PLASTIC BLUE ECONOMY S.L. Original data from Copernicus Marine Service (CMEMS).",
+    "distributionLiability": "The data are provided as-is. PLASTIC BLUE ECONOMY S.L makes no warranty, expressed or implied, regarding these data."
+  },
+  "fields": [
+    "Date",
+    "Time",
+    "absolute_humidity",
+    "total_cloud_cover",
+    "precipitation_24h",
+    "mean_wind_direction",
+    "wind_speed",
+    "solar_power",
+    "uv_index",
+    "atmospheric_pressure",
+    "air_temperature",
+    "sea_surface_temperature",
+    "surface_ocean_salinity",
+    "mean_direction_total_swell",
+    "mean_period_total_swell",
+    "mean_wave_direction",
+    "mean_wave_period",
+    "max_individual_wave_height",
+    "ocean_current_direction",
+    "ocean_current_speed",
+    "nao_index",
+    "so_index"
+  ],
+  "column_config": {
+    "environmental_badalona.json": {
+      "Date": {
+        "field_type": "Date",
+        "value_type": "iso8601",
+        "encoding": "YYYY-MM-DD",
+        "unit": null
+      },
+      "Time": {
+        "field_type": "Time",
+        "value_type": "iso8601",
+        "encoding": "HH:MM:SS",
+        "unit": null
+      },
+      "absolute_humidity": {
+        "field_type": "Absolute humidity at level 2m",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "unit": "g/m³",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.01,
+          "min": 0
+        }
+      },
+      "total_cloud_cover": {
+        "field_type": "Total cloud cover",
+        "value_type": "float",
+        "dimension": "fraction",
+        "unit": "%",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.1,
+          "min": 0,
+          "max": 100
+        }
+      },
+      "precipitation_24h": {
+        "field_type": "Amount of precipitation in the previous 24h",
+        "value_type": "float",
+        "dimension": "length",
+        "unit": "mm",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.1,
+          "min": 0
+        }
+      },
+      "mean_wind_direction": {
+        "field_type": "Mean wind direction at 2m for the previous 24h",
+        "value_type": "float",
+        "dimension": "angle",
+        "unit": "degrees",
+        "scale": {
+          "type": "circular",
+          "min": 0,
+          "max": 360
+        }
+      },
+      "wind_speed": {
+        "field_type": "Wind speed at 2m",
+        "value_type": "float",
+        "dimension": "velocity",
+        "unit": "km/h",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.1,
+          "min": 0
+        }
+      },
+      "solar_power": {
+        "field_type": "Solar power",
+        "value_type": "float",
+        "dimension": "power",
+        "unit": "kW",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.01,
+          "min": 0
+        }
+      },
+      "uv_index": {
+        "field_type": "UV index",
+        "value_type": "float",
+        "dimension": "index",
+        "unit": null,
+        "scale": {
+          "type": "ratio",
+          "precision": 0.1,
+          "min": 0
+        }
+      },
+      "atmospheric_pressure": {
+        "field_type": "Atmospheric pressure at 2m altitude",
+        "value_type": "float",
+        "dimension": "pressure",
+        "unit": "Pa",
+        "scale": {
+          "type": "ratio",
+          "precision": 1,
+          "min": 0
+        }
+      },
+      "air_temperature": {
+        "field_type": "Air temperature at 2m",
+        "value_type": "float",
+        "dimension": "temperature",
+        "unit": "°C",
+        "scale": {
+          "type": "interval",
+          "precision": 0.1
+        }
+      },
+      "sea_surface_temperature": {
+        "field_type": "Sea surface water temperature",
+        "value_type": "float",
+        "dimension": "temperature",
+        "unit": "°C",
+        "scale": {
+          "type": "interval",
+          "precision": 0.1
+        }
+      },
+      "surface_ocean_salinity": {
+        "field_type": "Surface ocean salinity",
+        "value_type": "float",
+        "dimension": "salinity",
+        "unit": "psu",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "mean_direction_total_swell": {
+        "field_type": "Mean direction total swell",
+        "value_type": "float",
+        "dimension": "angle",
+        "unit": "degrees",
+        "scale": {
+          "type": "circular",
+          "min": 0,
+          "max": 360
+        }
+      },
+      "mean_period_total_swell": {
+        "field_type": "Mean period total swell",
+        "value_type": "float",
+        "dimension": "time",
+        "unit": "s",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.1,
+          "min": 0
+        }
+      },
+      "mean_wave_direction": {
+        "field_type": "Mean wave direction",
+        "value_type": "float",
+        "dimension": "angle",
+        "unit": "degrees",
+        "scale": {
+          "type": "circular",
+          "min": 0,
+          "max": 360
+        }
+      },
+      "mean_wave_period": {
+        "field_type": "Mean wave period",
+        "value_type": "float",
+        "dimension": "time",
+        "unit": "s",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.1,
+          "min": 0
+        }
+      },
+      "max_individual_wave_height": {
+        "field_type": "Maximum individual wave height",
+        "value_type": "float",
+        "dimension": "length",
+        "unit": "m",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.01,
+          "min": 0
+        }
+      },
+      "ocean_current_direction": {
+        "field_type": "Ocean current direction 2m",
+        "value_type": "float",
+        "dimension": "angle",
+        "unit": "degrees",
+        "scale": {
+          "type": "circular",
+          "min": 0,
+          "max": 360
+        }
+      },
+      "ocean_current_speed": {
+        "field_type": "Ocean current speed 2m",
+        "value_type": "float",
+        "dimension": "velocity",
+        "unit": "km/h",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.01,
+          "min": 0
+        }
+      },
+      "nao_index": {
+        "field_type": "NAO-Index",
+        "value_type": "float",
+        "dimension": "index",
+        "unit": null,
+        "scale": {
+          "type": "interval",
+          "precision": 0.01
+        }
+      },
+      "so_index": {
+        "field_type": "SO-Index",
+        "value_type": "float",
+        "dimension": "index",
+        "unit": null,
+        "scale": {
+          "type": "interval",
+          "precision": 0.01
+        }
+      }
+    }
+  }
+}

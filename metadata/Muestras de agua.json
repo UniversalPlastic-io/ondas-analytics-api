@@ -1,0 +1,306 @@
+{
+  "fileIdentifier": "org-manual-ondas-44eg5s",
+  "name": "org-manual-ondas-44eg5s",
+  "language": "spa",
+  "characterSet": "utf8",
+  "hierarchyLevel": "dataset",
+  "status": "completed",
+  "dataUpdateFrequency": "asNeeded",
+
+  "description": "Concentración de microplásticos en muestras de agua superficial, expresada en microgramos por litro (μg L⁻¹), analizada mediante pirólisis-GC/MS. Incluye 12 types de polímeros plásticos: Polietileno, Polipropileno, Poliestireno, Cloruro de polivinilo, Tereftalato de polietileno, Poliamida, Policarbonato, Poliuretano, Poli(metacrilato de metilo), Acrilonitrilo-butadieno-estireno, Acetato de polivinilo y Alcohol polivinílico.",
+
+  "purpose": "Determinar la concentración y distribución de microplásticos en muestras de agua superficial marina en el marco del proyecto ONDAs.",
+
+  "project": "ONDAs",
+  "source": "PLASTIC BLUE ECONOMY S.L",
+
+  "citation": {
+    "authors": [
+      {
+        "individualName": "Adrià Gonzáles",
+        "organisation": "Universal Plastic"
+      }
+    ],
+    "publicationDate": "2026-03-07",
+    "title": "Concentración de microplásticos en agua superficial marina - Proyecto ONDAs",
+    "identifier": null
+  },
+
+  "resourceContact": {
+    "individualName": "Adrià Gonzáles",
+    "organisationName": "Universal Plastic",
+    "organisationROR": null,
+    "email": "adria.gonzalez@universalplastic.io",
+    "orcid": null,
+    "role": "principalInvestigator"
+  },
+
+  "metadataContact": {
+    "individualName": "Adrià Gonzáles",
+    "organisationName": "Universal Plastic",
+    "organisationROR": null,
+    "email": "adria.gonzalez@universalplastic.io",
+    "orcid": null,
+    "role": "pointOfContact"
+  },
+
+  "EX_Extent": {
+    "geographicElement": {
+      "EX_GeographicBoundingBox": {
+        "westBoundLongitude": 2.243317,
+        "eastBoundLongitude": 2.243317,
+        "southBoundLatitude": 41.434212,
+        "northBoundLatitude": 41.434212
+      }
+    },
+    "crs": "EPSG:4326",
+    "marine_region": "Mediterranean Sea",
+    "country_code": "ES",
+    "temporalElement": {
+      "start": "2026-02-18",
+      "end": "2026-03-07",
+      "frequency": null
+    }
+  },
+
+  "keywords": {
+    "theme": [
+      "microplastics",
+      "marine pollution",
+      "surface water",
+      "water quality",
+      "polymer concentration"
+    ],
+    "place": [
+      "Mediterranean Sea",
+      "Spain"
+    ]
+  },
+
+  "topicCategory": "environment",
+  "eov": "Marine debris",
+
+  "sampling_method": {
+    "label": "Surface water grab sampling",
+    "uri": null
+  },
+
+  "lineage": {
+    "sampling": {
+      "method": "Surface water grab sampling",
+      "equipment": "Bottle"
+    },
+    "lab_processing": {
+      "digestion": null,
+      "filtration_um": null,
+      "lab_blank": null,
+      "lab": "Universal Plastic"
+    },
+    "analysis": {
+      "instrument": "Pyrolysis-GC/MS",
+      "protocol_ref": null
+    },
+    "quality_control": {
+      "qc_level": "raw",
+      "validated_by": null,
+      "validation_date": null
+    }
+  },
+
+  "distribution": {
+    "dataFormat": "CSV",
+    "metadataFormat": "JSON",
+    "accessLevel": "public",
+    "embargo_until": null,
+    "endpoint": null,
+    "license": {
+      "id": "CC-BY-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "useLimitations": "Cite source: PLASTIC BLUE ECONOMY S.L",
+    "distributionLiability": "The data are provided as-is. PLASTIC BLUE ECONOMY S.L makes no warranty, expressed or implied, regarding these data."
+  },
+
+  "fields": [
+    "Date",
+    "Polyethylene",
+    "Polypropylene",
+    "Polystyrene",
+    "Polyvinyl chloride",
+    "Polyethylene terephthalate",
+    "Polyamide",
+    "Polycarbonate",
+    "Polyurethane",
+    "Poly(methyl methacrylate)",
+    "Acrylonitrile-butadiene-styrene",
+    "Polyvinyl acetate",
+    "Polyvinyl alcohol"
+  ],
+
+  "column_config": {
+    "water_microplastic.csv": {
+      "Date": {
+        "field_type": "Date",
+        "value_type": "iso8601",
+        "encoding": "YYYY-MM-DD",
+        "unit": null
+      },
+      "Polyethylene": {
+        "field_type": "Polyethylene",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PE",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polypropylene": {
+        "field_type": "Polypropylene",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PP",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polystyrene": {
+        "field_type": "Polystyrene",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PS",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polyvinyl chloride": {
+        "field_type": "Polyvinyl chloride",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PVC",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polyethylene terephthalate": {
+        "field_type": "Polyethylene terephthalate",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PET",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polyamide": {
+        "field_type": "Polyamide",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PA",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polycarbonate": {
+        "field_type": "Polycarbonate",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PC",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polyurethane": {
+        "field_type": "Polyurethane",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PU",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Poly(methyl methacrylate)": {
+        "field_type": "Poly(methyl methacrylate)",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PMMA",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Acrylonitrile-butadiene-styrene": {
+        "field_type": "Acrylonitrile-butadiene-styrene",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "ABS",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polyvinyl acetate": {
+        "field_type": "Polyvinyl acetate",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PVAc",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polyvinyl alcohol": {
+        "field_type": "Polyvinyl alcohol",
+        "value_type": "float",
+        "dimension": "mass_per_volume",
+        "code_system": "polymer",
+        "code": "PVA",
+        "unit": "μg L⁻¹",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      }
+    }
+  }
+}

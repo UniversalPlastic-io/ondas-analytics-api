@@ -1,0 +1,201 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "locn": "http://www.w3.org/ns/locn#",
+    "schema": "https://schema.org/"
+  },
+  "@id": "urn:gaia:ondas:schema:meteorología_cdse_vl",
+  "@type": [
+    "dcat:Dataset",
+    "schema:Dataset"
+  ],
+  "dct:identifier": "meteorología_cdse_vl",
+  "dct:title": {
+    "@language": "es",
+    "@value": "Esquema de dataset: Meteorología y oceanografía (CDSE VL)"
+  },
+  "dct:description": {
+    "@language": "es",
+    "@value": "Esquema público (DCAT JSON-LD) que describe las variables/columnas esperadas para el dataset anual de meteorología y oceanografía (CDSE VL). Los participantes deben usar `schema:variableMeasured` como diccionario de campos; los metadatos de instancia (publisher/contact/licencia/spatial/temporal/issued, etc.) se envían en el asset anual subido a S3."
+  },
+  "dct:language": "es",
+  "dcat:keyword": [
+    "meteorology",
+    "oceanography",
+    "sea surface temperature",
+    "salinity",
+    "wave height",
+    "ocean current",
+    "wind",
+    "atmospheric pressure",
+    "NAO index",
+    "marine monitoring",
+    "Badalona",
+    "Mediterranean Sea",
+    "Spain"
+  ],
+  "dcat:distribution": {
+    "@type": "dcat:Distribution",
+    "dct:title": "dataset_annual",
+    "dct:format": "JSON",
+    "dcat:mediaType": {
+      "@id": "https://www.iana.org/assignments/media-types/application/json"
+    }
+  },
+  "schema:variableMeasured": [
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Date",
+      "schema:description": "encoding=YYYY-MM-DD; field_type=Date; value_type=iso8601"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Time",
+      "schema:description": "encoding=HH:MM:SS; field_type=Time; value_type=iso8601"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "absolute_humidity",
+      "schema:description": "dimension=mass_per_volume; field_type=Absolute humidity at level 2m; scale={\"type\": \"ratio\", \"precision\": 0.01, \"min\": 0}; unit=g/m³; value_type=float",
+      "schema:unitText": "g/m³",
+      "schema:alternateName": "Absolute humidity at level 2m"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "total_cloud_cover",
+      "schema:description": "dimension=fraction; field_type=Total cloud cover; scale={\"type\": \"ratio\", \"precision\": 0.1, \"min\": 0, \"max\": 100}; unit=%; value_type=float",
+      "schema:unitText": "%",
+      "schema:alternateName": "Total cloud cover"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "precipitation_24h",
+      "schema:description": "dimension=length; field_type=Amount of precipitation in the previous 24h; scale={\"type\": \"ratio\", \"precision\": 0.1, \"min\": 0}; unit=mm; value_type=float",
+      "schema:unitText": "mm",
+      "schema:alternateName": "Amount of precipitation in the previous 24h"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "mean_wind_direction",
+      "schema:description": "dimension=angle; field_type=Mean wind direction at 2m for the previous 24h; scale={\"type\": \"circular\", \"min\": 0, \"max\": 360}; unit=degrees; value_type=float",
+      "schema:unitText": "degrees",
+      "schema:alternateName": "Mean wind direction at 2m for the previous 24h"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "wind_speed",
+      "schema:description": "dimension=velocity; field_type=Wind speed at 2m; scale={\"type\": \"ratio\", \"precision\": 0.1, \"min\": 0}; unit=km/h; value_type=float",
+      "schema:unitText": "km/h",
+      "schema:alternateName": "Wind speed at 2m"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "solar_power",
+      "schema:description": "dimension=power; field_type=Solar power; scale={\"type\": \"ratio\", \"precision\": 0.01, \"min\": 0}; unit=kW; value_type=float",
+      "schema:unitText": "kW",
+      "schema:alternateName": "Solar power"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "uv_index",
+      "schema:description": "dimension=index; field_type=UV index; scale={\"type\": \"ratio\", \"precision\": 0.1, \"min\": 0}; value_type=float",
+      "schema:alternateName": "UV index"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "atmospheric_pressure",
+      "schema:description": "dimension=pressure; field_type=Atmospheric pressure at 2m altitude; scale={\"type\": \"ratio\", \"precision\": 1, \"min\": 0}; unit=Pa; value_type=float",
+      "schema:unitText": "Pa",
+      "schema:alternateName": "Atmospheric pressure at 2m altitude"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "air_temperature",
+      "schema:description": "dimension=temperature; field_type=Air temperature at 2m; scale={\"type\": \"interval\", \"precision\": 0.1}; unit=°C; value_type=float",
+      "schema:unitText": "°C",
+      "schema:alternateName": "Air temperature at 2m"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "sea_surface_temperature",
+      "schema:description": "dimension=temperature; field_type=Sea surface water temperature; scale={\"type\": \"interval\", \"precision\": 0.1}; unit=°C; value_type=float",
+      "schema:unitText": "°C",
+      "schema:alternateName": "Sea surface water temperature"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "surface_ocean_salinity",
+      "schema:description": "dimension=salinity; field_type=Surface ocean salinity; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=psu; value_type=float",
+      "schema:unitText": "psu",
+      "schema:alternateName": "Surface ocean salinity"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "mean_direction_total_swell",
+      "schema:description": "dimension=angle; field_type=Mean direction total swell; scale={\"type\": \"circular\", \"min\": 0, \"max\": 360}; unit=degrees; value_type=float",
+      "schema:unitText": "degrees",
+      "schema:alternateName": "Mean direction total swell"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "mean_period_total_swell",
+      "schema:description": "dimension=time; field_type=Mean period total swell; scale={\"type\": \"ratio\", \"precision\": 0.1, \"min\": 0}; unit=s; value_type=float",
+      "schema:unitText": "s",
+      "schema:alternateName": "Mean period total swell"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "mean_wave_direction",
+      "schema:description": "dimension=angle; field_type=Mean wave direction; scale={\"type\": \"circular\", \"min\": 0, \"max\": 360}; unit=degrees; value_type=float",
+      "schema:unitText": "degrees",
+      "schema:alternateName": "Mean wave direction"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "mean_wave_period",
+      "schema:description": "dimension=time; field_type=Mean wave period; scale={\"type\": \"ratio\", \"precision\": 0.1, \"min\": 0}; unit=s; value_type=float",
+      "schema:unitText": "s",
+      "schema:alternateName": "Mean wave period"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "max_individual_wave_height",
+      "schema:description": "dimension=length; field_type=Maximum individual wave height; scale={\"type\": \"ratio\", \"precision\": 0.01, \"min\": 0}; unit=m; value_type=float",
+      "schema:unitText": "m",
+      "schema:alternateName": "Maximum individual wave height"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "ocean_current_direction",
+      "schema:description": "dimension=angle; field_type=Ocean current direction 2m; scale={\"type\": \"circular\", \"min\": 0, \"max\": 360}; unit=degrees; value_type=float",
+      "schema:unitText": "degrees",
+      "schema:alternateName": "Ocean current direction 2m"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "ocean_current_speed",
+      "schema:description": "dimension=velocity; field_type=Ocean current speed 2m; scale={\"type\": \"ratio\", \"precision\": 0.01, \"min\": 0}; unit=km/h; value_type=float",
+      "schema:unitText": "km/h",
+      "schema:alternateName": "Ocean current speed 2m"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "nao_index",
+      "schema:description": "dimension=index; field_type=NAO-Index; scale={\"type\": \"interval\", \"precision\": 0.01}; value_type=float",
+      "schema:alternateName": "NAO-Index"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "so_index",
+      "schema:description": "dimension=index; field_type=SO-Index; scale={\"type\": \"interval\", \"precision\": 0.01}; value_type=float",
+      "schema:alternateName": "SO-Index"
+    }
+  ]
+}

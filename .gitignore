@@ -1,0 +1,13 @@
+node_modules
+dist
+output/plots
+output/reference
+.env
+# Credenciales del portal (copiar desde portal-connectors.example.json)
+config/portal-connectors.local.json
+
+# Credential handover files — never commit
+handover/
+
+# macOS
+.DS_Store

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monthly Cleanup Report — Universal Plastic · Blue Resilience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page { size: A4; margin: 16mm 18mm; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 13px;
+      color: #00003F;
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── Cover ── */
+    .cover {
+      width: 100%;
+      min-height: 100vh;
+      background: #00003F;
+      display: flex;
+      flex-direction: column;
+      padding: 48px 56px;
+      page-break-after: always;
+      break-after: page;
+    }
+    .cover-logo { margin-bottom: auto; }
+    .cover-body { margin-top: auto; }
+    .cover-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .cover-divider {
+      width: 64px;
+      height: 2px;
+      background: #42C3EE;
+      margin-bottom: 16px;
+    }
+    .cover-entity {
+      font-size: 16px;
+      font-weight: 600;
+      color: #42C3EE;
+      margin-bottom: 40px;
+    }
+    .cover-meta {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 8px 0;
+      max-width: 320px;
+    }
+    .cover-meta-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: #9BB5C0;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding-top: 2px;
+    }
+    .cover-meta-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+    }
+    .cover-claim {
+      margin-top: 48px;
+      font-size: 11px;
+      color: #9BB5C0;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Report body ── */
+    .report-body { padding-top: 8px; }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #DEE0E0;
+      margin-bottom: 24px;
+    }
+    .page-header-left { display: flex; align-items: center; gap: 10px; }
+    .page-header-title { font-size: 11px; font-weight: 600; color: #00003F; }
+    .page-header-period { font-size: 11px; color: #777D80; }
+    .page-number { font-size: 10px; color: #777D80; }
+
+    /* ── Sections ── */
+    .report-section { margin-bottom: 36px; page-break-inside: avoid; }
+
+    .section-heading {
+      font-size: 11px;
+      font-weight: 700;
+      color: #42C3EE;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-heading-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      background: #42C3EE;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    /* ── KPI grid ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .kpi-card {
+      background: #fff;
+      border: 1px solid #DEE0E0;
+      border-top: 3px solid #42C3EE;
+      border-radius: 8px;
+      padding: 14px 16px;
+      page-break-inside: avoid;
+    }
+    .kpi-value { font-size: 26px; font-weight: 700; color: #00003F; line-height: 1; margin-bottom: 4px; }
+    .kpi-unit  { font-size: 11px; font-weight: 500; color: #42C3EE; }
+    .kpi-label { font-size: 11px; color: #777D80; margin-top: 6px; }
+
+    /* ── Charts ── */
+    .chart-wrap {
+      background: #F0F7FB;
+      border-radius: 8px;
+      padding: 16px;
+      page-break-inside: avoid;
+    }
+    .chart-wrap svg { display: block; width: 100%; }
+
+    /* ── Cleanups table ── */
+    .cleanups-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .cleanups-table th {
+      font-size: 10px;
+      font-weight: 600;
+      color: #777D80;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: left;
+      padding: 0 10px 8px;
+      border-bottom: 1px solid #DEE0E0;
+    }
+    .cleanups-table td {
+      padding: 8px 10px;
+      color: #00003F;
+      vertical-align: top;
+    }
+    .cleanups-table tr:nth-child(even) td { background: #F0F7FB; }
+    .cleanups-table tr:last-child td { border-bottom: 1px solid #DEE0E0; }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .pill-verified { background: #DCFCE7; color: #166534; }
+    .pill-pending  { background: #FEF3C7; color: #92400E; }
+
+    /* ── Map placeholder ── */
+    .map-placeholder {
+      background: #F0F7FB;
+      border: 1px dashed #DEE0E0;
+      border-radius: 8px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: #777D80;
+      font-size: 12px;
+    }
+
+    /* ── Footer ── */
+    .report-footer {
+      margin-top: 32px;
+      padding-top: 8px;
+      border-top: 1px solid #DEE0E0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #777D80;
+    }
+
+    /* ── API reference note ── */
+    .api-note {
+      background: #F0F7FB;
+      border-left: 3px solid #42C3EE;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      font-size: 11px;
+      color: #3D4649;
+      line-height: 1.6;
+    }
+    .api-note strong { color: #00003F; }
+    .api-note code {
+      background: #DEE0E0;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-family: monospace;
+      font-size: 10px;
+    }
+
+    @media print {
+      .cover { min-height: 100vh; }
+      .report-section { page-break-inside: avoid; }
+      .api-note { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     COVER PAGE
+═══════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-logo">
+    <!-- Universal Plastic logo — horizontal white -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264.4 82.68" width="180" height="56">
+      <defs><style>.cls-1{fill:#ffffff}.cls-2{fill:#ffffff}</style></defs>
+      <g>
+        <g>
+          <path class="cls-2" d="M84.91,31.82l-13.05-22.6C68.74,3.81,62.92.45,56.67.45h-26.1c-6.25,0-12.06,3.36-15.19,8.77L2.34,31.82c-3.12,5.41-3.12,12.13,0,17.54l13.05,22.6c3.12,5.41,8.94,8.77,15.19,8.77h26.1c6.25,0,12.06-3.36,15.19-8.77l13.05-22.6c3.12-5.41,3.12-12.13,0-17.54ZM79.2,52.12l-2.89,5.01c-.02-2.95-.81-5.85-2.29-8.4l-15.63-26.97,6.06-.02,12.94,22.32c1.18,2.04,1.81,4.37,1.81,6.73v1.32ZM49.06,77.17h-3.23c2.54-1.49,4.66-3.63,6.13-6.18l15.36-26.71,3.1,5.36-11.21,19.58c-1.18,2.05-2.88,3.75-4.93,4.94l-5.23,3.02ZM17.67,66l-2.42-1.4-2-3.46.05.03c2.58,1.49,5.52,2.28,8.5,2.28h.03l30.41-.08-2.5,4.35-25.34.09h-.02c-2.35,0-4.68-.62-6.71-1.8ZM34.44,4.33l.55-.32h5.88c-2.54,1.49-4.66,3.63-6.13,6.18l-15.13,26.3-2.89-4.99,12.79-22.24c1.18-2.05,2.88-3.75,4.93-4.93ZM70.63,14.21l3.59,6.22c-2.57-1.47-5.54-2.25-8.46-2.24l-31.56.08,2.8-4.88,28.77-.09h.02c1.66,0,3.29.31,4.84.91ZM54.29,59.8l-21.13.06-11.48-19.81,10.47-18.21h3.04s0,0,0,0l19.1-.05,10.98,18.94-10.97,19.09ZM13.16,32.45l15.9,27.42-6.43.02-14.78-25.5c-.52-.9-.94-1.86-1.24-2.85l4.26-7.38c.04,2.91.83,5.77,2.29,8.29ZM68.07,9.9c-.75-.1-1.51-.16-2.28-.16h-.03l-26.41.08c.97-1.11,2.12-2.06,3.4-2.8l5.23-3.02h8.69c4.54,0,8.8,2.23,11.4,5.89ZM18.47,11c2.22-3.85,6.16-6.4,10.52-6.9-.99,1.01-1.85,2.15-2.56,3.38l-11.52,20.03c-.32-1.16-.49-2.37-.49-3.58v-5.92l4.04-7.01ZM4.46,35.62c.1.19.2.37.31.55l13.46,23.23c-1.1-.3-2.16-.74-3.15-1.31l-5.39-3.11-4.27-7.4c-2.11-3.66-2.43-8.07-.96-11.95ZM18.56,70.33c1.86.68,3.83,1.03,5.83,1.03h.03l23-.08c-.98,1.14-2.15,2.11-3.46,2.87l-5.23,3.02h-8.14c-4.92,0-9.51-2.62-12.02-6.84ZM68.78,70.18c-2.49,4.31-7.13,6.99-12.11,6.99h-.5c2.54-1.49,4.66-3.63,6.13-6.18l9.95-17.37c.33,1.18.5,2.4.5,3.64v6.04l-3.98,6.89ZM82.27,46.75c-.38-1.56-.99-3.07-1.8-4.47l-11.71-20.21c1.31.3,2.58.79,3.75,1.47l5.27,3.04,4.05,7.01c2.33,4.04,2.48,9,.44,13.15Z"/>
+          <g>
+            <path class="cls-1" d="M115.71,33.35c1.73,0,3.2.26,4.41.76,1.22.5,2.2,1.17,2.97,1.99.76.82,1.32,1.77,1.66,2.83.35,1.06.52,2.16.52,3.29s-.17,2.2-.52,3.27c-.35,1.07-.91,2.02-1.66,2.84-.76.82-1.75,1.49-2.97,1.99-1.22.5-2.69.76-4.41.76h-6.38v9.91h-6.08v-27.63h12.46ZM114.05,46.35c.7,0,1.37-.05,2.01-.16.64-.11,1.21-.3,1.7-.6.49-.3.88-.72,1.18-1.26.3-.54.44-1.25.44-2.12s-.15-1.59-.44-2.12c-.3-.54-.69-.96-1.18-1.26-.49-.3-1.06-.49-1.7-.6-.64-.1-1.32-.16-2.01-.16h-4.72v8.29h4.72Z"/>
+            <path class="cls-1" d="M135.15,33.35v22.53h13.47v5.11h-19.54v-27.63h6.08Z"/>
+            <path class="cls-1" d="M166.94,33.35l10.34,27.63h-6.31l-2.09-6.15h-10.34l-2.17,6.15h-6.12l10.45-27.63h6.23ZM167.28,50.3l-3.48-10.14h-.07l-3.6,10.14h7.16Z"/>
+            <path class="cls-1" d="M184.32,54.17c.34.64.78,1.17,1.33,1.57.55.4,1.2.7,1.95.89.75.19,1.52.29,2.32.29.54,0,1.12-.04,1.74-.13.62-.09,1.2-.26,1.74-.52.54-.26,1-.61,1.36-1.06.36-.45.54-1.03.54-1.72,0-.75-.24-1.35-.72-1.82-.48-.46-1.1-.85-1.88-1.16-.77-.31-1.66-.58-2.64-.82-.98-.23-1.98-.49-2.98-.77-1.03-.26-2.03-.58-3.02-.95-.98-.37-1.86-.86-2.64-1.45-.77-.59-1.4-1.33-1.88-2.22-.48-.89-.72-1.97-.72-3.23,0-1.42.3-2.65.91-3.7.61-1.05,1.4-1.92,2.38-2.61.98-.7,2.09-1.21,3.33-1.55,1.24-.34,2.48-.5,3.71-.5,1.44,0,2.83.16,4.16.49,1.33.32,2.51.85,3.54,1.56,1.03.72,1.85,1.65,2.45,2.77.61,1.12.91,2.49.91,4.09h-5.88c-.05-.82-.22-1.51-.52-2.05-.3-.54-.69-.96-1.18-1.28-.49-.31-1.05-.53-1.68-.66-.63-.13-1.33-.2-2.07-.2-.49,0-.98.05-1.47.16-.49.11-.94.29-1.33.54-.4.26-.73.58-.99.96-.26.39-.39.88-.39,1.47,0,.54.1.98.31,1.32.21.34.61.64,1.22.93.61.29,1.44.57,2.51.85,1.07.28,2.47.64,4.2,1.09.52.11,1.24.29,2.15.56.91.27,1.83.7,2.73,1.29.91.59,1.68,1.38,2.34,2.38.66,1,.99,2.26.99,3.81,0,1.27-.25,2.44-.73,3.53-.49,1.09-1.22,2.02-2.19,2.81-.97.79-2.17,1.4-3.6,1.84-1.43.44-3.09.66-4.97.66-1.52,0-3-.19-4.43-.56-1.43-.37-2.69-.96-3.8-1.76-1.1-.8-1.97-1.82-2.61-3.06-.64-1.24-.96-2.71-.93-4.41h5.88c0,.93.16,1.71.5,2.36l.03-.02Z"/>
+            <path class="cls-1" d="M202.62,38.46v-5.11h22.64v5.11h-8.29v22.53h-6.08v-22.53h-8.29,0Z"/>
+            <path class="cls-1" d="M234.52,33.35v27.63h-6.08v-27.63h6.08Z"/>
+            <path class="cls-1" d="M257.59,40.72c-.36-.58-.82-1.09-1.36-1.53-.54-.44-1.15-.78-1.84-1.03-.68-.25-1.4-.37-2.15-.37-1.37,0-2.53.26-3.48.79-.96.53-1.73,1.24-2.32,2.12-.59.89-1.03,1.9-1.29,3.04-.27,1.14-.4,2.31-.4,3.53s.13,2.29.4,3.38c.27,1.1.7,2.08,1.29,2.96.59.88,1.37,1.58,2.32,2.11.96.53,2.12.79,3.48.79,1.86,0,3.31-.57,4.36-1.71,1.05-1.14,1.68-2.64,1.92-4.49h5.88c-.16,1.73-.55,3.29-1.2,4.69-.64,1.39-1.5,2.58-2.55,3.56-1.06.98-2.3,1.73-3.71,2.25-1.42.52-2.98.77-4.69.77-2.12,0-4.02-.37-5.71-1.1-1.69-.73-3.11-1.75-4.27-3.04-1.16-1.29-2.05-2.81-2.67-4.55-.62-1.74-.93-3.62-.93-5.63s.31-3.98.93-5.75c.62-1.77,1.51-3.31,2.67-4.63,1.16-1.32,2.59-2.35,4.27-3.1s3.59-1.12,5.71-1.12c1.52,0,2.96.22,4.32.66,1.35.44,2.57,1.08,3.64,1.92,1.07.84,1.95,1.88,2.65,3.11.7,1.24,1.14,2.66,1.32,4.26h-5.88c-.11-.7-.34-1.33-.7-1.92v.02Z"/>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-title">Monthly Cleanup Report</div>
+    <div class="cover-divider"></div>
+    <div class="cover-entity">Océano Foods · Spain</div>
+    <div class="cover-meta">
+      <span class="cover-meta-label">Period</span>
+      <span class="cover-meta-value">May 2025</span>
+      <span class="cover-meta-label">Generated</span>
+      <span class="cover-meta-value">18 Jun 2026</span>
+      <span class="cover-meta-label">Detail level</span>
+      <span class="cover-meta-value">Standard</span>
+      <span class="cover-meta-label">Report ID</span>
+      <span class="cover-meta-value">rep_may2025_001</span>
+    </div>
+    <div class="cover-claim">Universal Plastic · Blue Resilience</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     REPORT BODY
+═══════════════════════════════════ -->
+<div class="report-body">
+
+  <!-- API reference note (hidden on print) -->
+  <div class="api-note">
+    <strong>API reference template</strong> — This document shows the expected visual output for <code>POST /reports/request</code> with <code>"type": "monthly"</code>, <code>"period": {"preset": "month"}</code>. Data below maps to the <code>GET /reports/{id}</code> response fields. See <code>docs/REPORT_ENDPOINT_SPEC.md</code> for full payload spec.
+  </div>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <span class="page-header-title">Universal Plastic · Blue Resilience</span>
+      <span style="color:#DEE0E0">·</span>
+      <span class="page-header-period">Monthly Cleanup Report — May 2025</span>
+    </div>
+    <span class="page-number">Océano Foods</span>
+  </div>
+
+  <!-- 01 KPIs -->
+  <div class="report-section">
+    <div class="section-heading">
+      <span class="section-heading-num">01</span>
+      KPIs &amp; Metrics
+    </div>
+    <!-- API fields: kpis.kg · kpis.co2 · kpis.events · kpis.impactIndex -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-value">1,240</div>
+        <div class="kpi-unit">kg</div>
+        <div class="kpi-label">Total collected</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">12.4</div>
+        <div class="kpi-unit">t CO₂eq</div>
+        <div class="kpi-label">Carbon equivalent</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">14</div>
+        <div class="kpi-unit">events</div>
+        <div class="kpi-label">Cleanup events</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">81</div>
+        <div class="kpi-unit">/ 100</div>
+        <div class="kpi-label">Impact Index</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 Plastic Types -->
+  <div class="report-section">
+    <div class="section-heading">
+      <span class="section-heading-num">02</span>
+      Plastic Types
+    </div>
+    <!-- API field: plasticTypes[{type, pct, kg}] -->
+    <div class="chart-wrap">
+      <svg viewBox="0 0 348 196" style="width:100%;max-width:460px">
+        <!-- PET 32% -->
+        <text x="46" y="18" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#00003F">PET</text>
+        <rect x="52" y="6" width="83" height="14" rx="3" fill="#00003F" opacity="0.85"/>
+        <text x="140" y="18" font-family="Inter,sans-serif" font-size="10" fill="#777D80">32%</text>
+        <!-- HDPE 18% -->
+        <text x="46" y="46" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#00003F">HDPE</text>
+        <rect x="52" y="34" width="47" height="14" rx="3" fill="#39B3D8" opacity="0.85"/>
+        <text x="104" y="46" font-family="Inter,sans-serif" font-size="10" fill="#777D80">18%</text>
+        <!-- LDPE 16% -->
+        <text x="46" y="74" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#00003F">LDPE</text>
+        <rect x="52" y="62" width="42" height="14" rx="3" fill="#BDEAF7" opacity="0.85"/>
+        <text x="99" y="74" font-family="Inter,sans-serif" font-size="10" fill="#777D80">16%</text>
+        <!-- PP 14% -->
+        <text x="46" y="102" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#00003F">PP</text>
+        <rect x="52" y="90" width="36" height="14" rx="3" fill="#4055F6" opacity="0.85"/>
+        <text x="93" y="102" font-family="Inter,sans-serif" font-size="10" fill="#777D80">14%</text>
+        <!-- Others 8% -->
+        <text x="46" y="130" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#00003F">Others</text>
+        <rect x="52" y="118" width="21" height="14" rx="3" fill="#B8BBC9" opacity="0.85"/>
+        <text x="78" y="130" font-family="Inter,sans-serif" font-size="10" fill="#777D80">8%</text>
+        <!-- PS 7% -->
+        <text x="46" y="158" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#00003F">PS</text>
+        <rect x="52" y="146" width="18" height="14" rx="3" fill="#2F8AA9" opacity="0.85"/>
+        <text x="75" y="158" font-family="Inter,sans-serif" font-size="10" fill="#777D80">7%</text>
+        <!-- PVC 5% -->
+        <text x="46" y="186" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#00003F">PVC</text>
+        <rect x="52" y="174" width="13" height="14" rx="3" fill="#62C8E8" opacity="0.85"/>
+        <text x="70" y="186" font-family="Inter,sans-serif" font-size="10" fill="#777D80">5%</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 03 Monthly Trend -->
+  <div class="report-section">
+    <div class="section-heading">
+      <span class="section-heading-num">03</span>
+      Monthly Trend
+    </div>
+    <!-- API field: series[{label, kg}] — Jan–May 2025 -->
+    <div class="chart-wrap">
+      <svg viewBox="0 0 480 160" style="width:100%">
+        <!-- Axes -->
+        <line x1="48" y1="16" x2="48" y2="132" stroke="#DEE0E0" stroke-width="1"/>
+        <line x1="48" y1="132" x2="464" y2="132" stroke="#DEE0E0" stroke-width="1"/>
+        <!-- Y labels -->
+        <text x="44" y="136" text-anchor="end" font-family="Inter,sans-serif" font-size="9" fill="#777D80">0</text>
+        <text x="44" y="20" text-anchor="end" font-family="Inter,sans-serif" font-size="9" fill="#777D80">1240</text>
+        <!-- Line: Jan=420 Feb=610 Mar=890 Apr=740 May=1240 -->
+        <!-- x: 48,152,256,360,464  y: 93,75,49,63,16 -->
+        <polyline points="48,93 152,75 256,49 360,63 464,16"
+                  fill="none" stroke="#42C3EE" stroke-width="2"
+                  stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Dots -->
+        <circle cx="48"  cy="93" r="3" fill="#42C3EE" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="152" cy="75" r="3" fill="#42C3EE" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="256" cy="49" r="3" fill="#42C3EE" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="360" cy="63" r="3" fill="#42C3EE" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="464" cy="16" r="3" fill="#42C3EE" stroke="#fff" stroke-width="1.5"/>
+        <!-- X labels -->
+        <text x="48"  y="150" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#777D80">Jan</text>
+        <text x="152" y="150" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#777D80">Feb</text>
+        <text x="256" y="150" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#777D80">Mar</text>
+        <text x="360" y="150" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#777D80">Apr</text>
+        <text x="464" y="150" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#777D80">May</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 04 Cleanup Events -->
+  <div class="report-section">
+    <div class="section-heading">
+      <span class="section-heading-num">04</span>
+      Cleanup Events
+    </div>
+    <!-- API field: cleanups[{date, location, city, kg, volunteers, status}] -->
+    <table class="cleanups-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Location</th>
+          <th>City</th>
+          <th style="text-align:right">Collected</th>
+          <th style="text-align:right">Volunteers</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>2025-05-29</td><td>Cala Sant Francesc</td><td>Blanes, Costa Brava</td><td style="text-align:right">42.6 kg</td><td style="text-align:right">12</td><td><span class="pill pill-verified">verified</span></td></tr>
+        <tr><td>2025-05-26</td><td>Playa de la Barceloneta</td><td>Barcelona</td><td style="text-align:right">78.2 kg</td><td style="text-align:right">24</td><td><span class="pill pill-verified">verified</span></td></tr>
+        <tr><td>2025-05-23</td><td>Cala Montjoi</td><td>Roses, Alt Empordà</td><td style="text-align:right">31.4 kg</td><td style="text-align:right">8</td><td><span class="pill pill-verified">verified</span></td></tr>
+        <tr><td>2025-05-20</td><td>Puerto de Badalona</td><td>Badalona</td><td style="text-align:right">56.1 kg</td><td style="text-align:right">18</td><td><span class="pill pill-verified">verified</span></td></tr>
+        <tr><td>2025-05-17</td><td>Platja del Prat</td><td>El Prat de Llobregat</td><td style="text-align:right">88.4 kg</td><td style="text-align:right">30</td><td><span class="pill pill-verified">verified</span></td></tr>
+        <tr><td>2025-05-14</td><td>Cala Giverola</td><td>Tossa de Mar</td><td style="text-align:right">19.8 kg</td><td style="text-align:right">6</td><td><span class="pill pill-pending">pending</span></td></tr>
+        <tr><td>2025-05-10</td><td>Playa de Ocata</td><td>El Masnou</td><td style="text-align:right">64.3 kg</td><td style="text-align:right">20</td><td><span class="pill pill-verified">verified</span></td></tr>
+        <tr><td>2025-05-07</td><td>Cala Pola</td><td>Tossa de Mar</td><td style="text-align:right">28.7 kg</td><td style="text-align:right">9</td><td><span class="pill pill-verified">verified</span></td></tr>
+        <tr><td>2025-05-03</td><td>Platja de Castelldefels</td><td>Castelldefels</td><td style="text-align:right">95.6 kg</td><td style="text-align:right">35</td><td><span class="pill pill-verified">verified</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 05 Impact Index -->
+  <div class="report-section">
+    <div class="section-heading">
+      <span class="section-heading-num">05</span>
+      Impact Index
+    </div>
+    <!-- API field: kpis.impactIndex (0–100) -->
+    <div style="display:flex;align-items:center;gap:32px">
+      <div style="flex:0 0 260px">
+        <!-- Gauge: value=81, nRot=(81/100)*180-180=-34.2, nLen=69, Excellent -->
+        <svg viewBox="0 0 240 185" style="width:100%;max-width:260px;display:block;margin:0 auto">
+          <defs>
+            <linearGradient id="gauge-grad" gradientUnits="userSpaceOnUse" x1="32" y1="0" x2="208" y2="0">
+              <stop offset="0"   stop-color="#F3EE5F"/>
+              <stop offset="0.5" stop-color="#7DD9A8"/>
+              <stop offset="1"   stop-color="#42C3EE"/>
+            </linearGradient>
+          </defs>
+          <path d="M 32,108 A 88,88 0 0,1 120,20 A 88,88 0 0,1 208,108"
+                fill="none" stroke="url(#gauge-grad)" stroke-width="26" stroke-linecap="round"/>
+          <g transform="rotate(-34.2 120 108)">
+            <line x1="126" y1="108" x2="189" y2="108"
+                  stroke="#00003F" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+          <circle cx="120" cy="108" r="5"   fill="#00003F"/>
+          <circle cx="120" cy="108" r="2.5" fill="white"/>
+          <text x="19"  y="114" text-anchor="end"   font-family="Inter,sans-serif" font-size="8" fill="#9BB5C0">0</text>
+          <text x="221" y="114" text-anchor="start" font-family="Inter,sans-serif" font-size="8" fill="#9BB5C0">100</text>
+          <text x="120" y="152" text-anchor="middle" font-family="Inter,sans-serif" font-size="44" font-weight="700" fill="#00003F">81</text>
+          <text x="120" y="171" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#42C3EE">Excellent impact</text>
+        </svg>
+      </div>
+      <div style="flex:1;font-size:12px;color:#3D4649;line-height:1.6">
+        <p style="font-weight:600;color:#00003F;margin-bottom:8px">Score: 81 / 100</p>
+        <p>The Impact Index combines kg recovered, volunteer hours, verified evidence, and campaign consistency into a single score. Scores above 76 are rated <strong>Excellent</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 Location Overview -->
+  <div class="report-section">
+    <div class="section-heading">
+      <span class="section-heading-num">06</span>
+      Location Overview
+    </div>
+    <!-- API field: mapPoints[{lat, lng, location}] — rendered as interactive map in dashboard -->
+    <div class="map-placeholder">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9BB5C0"
+           stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+        <line x1="8" y1="2" x2="8" y2="18"/>
+        <line x1="16" y1="6" x2="16" y2="22"/>
+      </svg>
+      <span>Interactive map available in Blue Resilience OS dashboard</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="report-footer">
+    <span>Universal Plastic · Blue Resilience · rep_may2025_001</span>
+    <span>Generated 18 Jun 2026</span>
+  </div>
+
+</div>
+</body>
+</html>

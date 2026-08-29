@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "username": "user_universalplastic",
+      "password": "CHANGE_ME",
+      "label": "Login connector Universal Plastic"
+    },
+    {
+      "username": "user_innoceana",
+      "password": "CHANGE_ME",
+      "label": "Login connector Innoceana"
+    },
+    {
+      "username": "user_bcss",
+      "password": "CHANGE_ME",
+      "label": "Login connector BCSS"
+    },
+    {
+      "username": "user_portbadalona",
+      "password": "CHANGE_ME",
+      "label": "Login connector Port Badalona"
+    },
+    {
+      "username": "user_gijonsurfhostel",
+      "password": "CHANGE_ME",
+      "label": "Login connector Gijon Surf Hostel"
+    }
+  ]
+}

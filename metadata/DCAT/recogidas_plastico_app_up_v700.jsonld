@@ -1,0 +1,135 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "locn": "http://www.w3.org/ns/locn#",
+    "schema": "https://schema.org/"
+  },
+  "@id": "urn:gaia:ondas:schema:recogidas_plastico_app_up_v700",
+  "@type": [
+    "dcat:Dataset",
+    "schema:Dataset"
+  ],
+  "dct:identifier": "recogidas_plastico_app_up_v700",
+  "dct:title": {
+    "@language": "es",
+    "@value": "Esquema de dataset: Recogidas de plástico (App UP v7.0.0)"
+  },
+  "dct:description": {
+    "@language": "es",
+    "@value": "Esquema público (DCAT JSON-LD) que describe las variables/columnas esperadas para el dataset anual de recogidas de plástico registradas por la app Universal Plastic v7.0.0. Los participantes deben usar `schema:variableMeasured` como diccionario de campos; los metadatos de instancia (publisher/contact/licencia/spatial/temporal/issued, etc.) se envían en el asset anual subido a S3."
+  },
+  "dct:language": "es",
+  "dcat:keyword": [
+    "beach cleanup",
+    "coastal litter",
+    "plastic waste",
+    "citizen science",
+    "marine debris",
+    "Mediterranean Sea",
+    "Spain",
+    "Marine debris"
+  ],
+  "dcat:distribution": {
+    "@type": "dcat:Distribution",
+    "dct:title": "dataset_annual",
+    "dct:format": "JSON",
+    "dcat:mediaType": {
+      "@id": "https://www.iana.org/assignments/media-types/application/json"
+    }
+  },
+  "schema:variableMeasured": [
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Date",
+      "schema:description": "encoding=YYYY-MM-DD; field_type=Date; value_type=iso8601"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Start point",
+      "schema:description": "crs=EPSG:4326; encoding=lat_lon_array; field_type=Start point; value_type=geo_point"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "End point",
+      "schema:description": "crs=EPSG:4326; encoding=lat_lon_array; field_type=End point; value_type=geo_point"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Plastic waste collected",
+      "schema:description": "dimension=mass; field_type=Plastic waste collected; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=kg; value_type=float",
+      "schema:unitText": "kg"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Number of participants",
+      "schema:description": "dimension=count; field_type=Number of participants; scale={\"type\": \"ratio\", \"precision\": 1, \"min\": 0}; value_type=int"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Walking distance",
+      "schema:description": "dimension=length; field_type=Walking distance; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=km; value_type=float",
+      "schema:unitText": "km"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Cleanup duration",
+      "schema:description": "dimension=time; field_type=Cleanup duration; scale={\"type\": \"ratio\", \"precision\": 1, \"min\": 0}; unit=s; value_type=int",
+      "schema:unitText": "s"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polyethylene terephthalate",
+      "schema:description": "code=PET; code_system=polymer; dimension=fraction; field_type=Polyethylene terephthalate; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=%; value_type=float",
+      "schema:unitText": "%"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "High-density polyethylene",
+      "schema:description": "code=HDPE; code_system=polymer; dimension=fraction; field_type=High-density polyethylene; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=%; value_type=float",
+      "schema:unitText": "%"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polyvinyl chloride",
+      "schema:description": "code=PVC; code_system=polymer; dimension=fraction; field_type=Polyvinyl chloride; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=%; value_type=float",
+      "schema:unitText": "%"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Low-density polyethylene",
+      "schema:description": "code=LDPE; code_system=polymer; dimension=fraction; field_type=Low-density polyethylene; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=%; value_type=float",
+      "schema:unitText": "%"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polypropylene",
+      "schema:description": "code=PP; code_system=polymer; dimension=fraction; field_type=Polypropylene; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=%; value_type=float",
+      "schema:unitText": "%"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polystyrene",
+      "schema:description": "code=PS; code_system=polymer; dimension=fraction; field_type=Polystyrene; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=%; value_type=float",
+      "schema:unitText": "%"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Others",
+      "schema:description": "code=OTHER; code_system=polymer; dimension=fraction; field_type=Others; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=%; value_type=float",
+      "schema:unitText": "%"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Collected waste image",
+      "schema:description": "field_type=Collected waste image; unit=URL; value_type=url",
+      "schema:unitText": "URL"
+    }
+  ]
+}

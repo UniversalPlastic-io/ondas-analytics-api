@@ -1,0 +1,192 @@
+{
+  "period": {
+    "start": "1970-01-01",
+    "end": "2999-12-31",
+    "label": "All time"
+  },
+  "scope": "All campaigns",
+  "sourcesIncluded": [
+    "recogidas_playa",
+    "boya_biomasa",
+    "boya_microplasticos",
+    "environmental_boya"
+  ],
+  "kpis": {
+    "kg": 264.53,
+    "cleanups": 18,
+    "volunteers": 23,
+    "locations": 5,
+    "km": 45.1,
+    "hours": 26,
+    "ondas": 18,
+    "evidence": 301,
+    "verified": 100,
+    "avgKg": 14.7,
+    "index": 12
+  },
+  "series": [
+    {
+      "label": "2025",
+      "kg": 177.49
+    },
+    {
+      "label": "2026",
+      "kg": 87.04
+    }
+  ],
+  "plasticTypes": [
+    {
+      "type": "PET",
+      "pct": 8.91,
+      "color": "#00003F"
+    },
+    {
+      "type": "HDPE",
+      "pct": 3.99,
+      "color": "#39B3D8"
+    },
+    {
+      "type": "LDPE",
+      "pct": 13.51,
+      "color": "#BDEAF7"
+    },
+    {
+      "type": "PP",
+      "pct": 2.11,
+      "color": "#4055F6"
+    },
+    {
+      "type": "PS",
+      "pct": 1,
+      "color": "#2F8AA9"
+    },
+    {
+      "type": "PVC",
+      "pct": 7.67,
+      "color": "#62C8E8"
+    },
+    {
+      "type": "Others",
+      "pct": 1.69,
+      "color": "#B8BBC9"
+    }
+  ],
+  "topLocations": [
+    {
+      "name": "Tenerife",
+      "kg": 144.87,
+      "cleanups": 7
+    },
+    {
+      "name": "Gijón",
+      "kg": 100.32,
+      "cleanups": 7
+    },
+    {
+      "name": "Barcelona",
+      "kg": 18.44,
+      "cleanups": 2
+    },
+    {
+      "name": "Badalona",
+      "kg": 0.5,
+      "cleanups": 1
+    },
+    {
+      "name": "Blanes",
+      "kg": 0.4,
+      "cleanups": 1
+    }
+  ],
+  "biomass": {
+    "meanTonnes": 18.26,
+    "units": "Tonnes",
+    "readings": 3611,
+    "series": [
+      {
+        "label": "2025",
+        "kg": 16.73
+      },
+      {
+        "label": "2026",
+        "kg": 18.56
+      }
+    ]
+  },
+  "microplastics": {
+    "particles": 217,
+    "byPolymer": [
+      {
+        "type": "PE",
+        "count": 101
+      },
+      {
+        "type": "PS",
+        "count": 45
+      },
+      {
+        "type": "PP",
+        "count": 29
+      },
+      {
+        "type": "PA",
+        "count": 20
+      },
+      {
+        "type": "PMMA",
+        "count": 6
+      },
+      {
+        "type": "polyester fibre",
+        "count": 5
+      },
+      {
+        "type": "EPDM",
+        "count": 2
+      },
+      {
+        "type": "MBS",
+        "count": 2
+      },
+      {
+        "type": "PAc",
+        "count": 2
+      },
+      {
+        "type": "PHEMA",
+        "count": 2
+      },
+      {
+        "type": "dimer-acid-co-alkyl polyamine",
+        "count": 1
+      },
+      {
+        "type": "NBR",
+        "count": 1
+      },
+      {
+        "type": "Polyester",
+        "count": 1
+      }
+    ],
+    "bySize": [
+      {
+        "size": "Microplastics",
+        "count": 158
+      },
+      {
+        "size": "Mesoplastics",
+        "count": 48
+      },
+      {
+        "size": "Macroplastics",
+        "count": 11
+      }
+    ]
+  },
+  "environment": {
+    "readings": 3865,
+    "meanSeaSurfaceTemperatureC": 14.72,
+    "meanWindSpeedMs": 4.83
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "locn": "http://www.w3.org/ns/locn#",
+    "schema": "https://schema.org/"
+  },
+  "@id": "urn:gaia:ondas:schema:boya_microplasticos_seabot",
+  "@type": [
+    "dcat:Dataset",
+    "schema:Dataset"
+  ],
+  "dct:identifier": "boya_microplasticos_seabot",
+  "dct:title": {
+    "@language": "es",
+    "@value": "Esquema de dataset: Microplásticos en agua (Boya Seabot)"
+  },
+  "dct:description": {
+    "@language": "es",
+    "@value": "Esquema público (DCAT JSON-LD) que describe las variables/columnas esperadas para el dataset anual de microplásticos en agua recogidos por boya Seabot. Los participantes deben usar `schema:variableMeasured` como diccionario de campos; los metadatos de instancia (publisher/contact/licencia/spatial/temporal/issued, etc.) se envían en el asset anual subido a S3."
+  },
+  "dct:language": "es",
+  "dcat:keyword": [
+    "microplastics",
+    "marine pollution",
+    "autonomous buoy",
+    "water quality",
+    "polymer concentration",
+    "stereomicroscopy",
+    "microFTIR",
+    "Badalona",
+    "Mediterranean Sea",
+    "Spain",
+    "Marine debris"
+  ],
+  "dcat:distribution": {
+    "@type": "dcat:Distribution",
+    "dct:title": "dataset_annual",
+    "dct:format": "JSON",
+    "dcat:mediaType": {
+      "@id": "https://www.iana.org/assignments/media-types/application/json"
+    }
+  },
+  "schema:variableMeasured": [
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Date",
+      "schema:description": "encoding=YYYY-MM-DD; field_type=Date; value_type=iso8601"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Particle_ID",
+      "schema:description": "field_type=Particle identifier; value_type=integer",
+      "schema:alternateName": "Particle identifier"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Size",
+      "schema:description": "code_system=size_class; field_type=Size class; value_type=string",
+      "schema:alternateName": "Size class"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Form",
+      "schema:description": "code_system=particle_form; field_type=Particle form; value_type=string",
+      "schema:alternateName": "Particle form"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Type_of_Polymer",
+      "schema:description": "code_system=polymer; field_type=Polymer type; value_type=string",
+      "schema:alternateName": "Polymer type"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Colour",
+      "schema:description": "field_type=Particle colour; value_type=string",
+      "schema:alternateName": "Particle colour"
+    }
+  ]
+}

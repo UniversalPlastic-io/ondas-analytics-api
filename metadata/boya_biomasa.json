@@ -1,0 +1,217 @@
+{
+  "fileIdentifier": "org-otro-ondas-ifh9lm",
+  "name": "org-otro-ondas-ifh9lm",
+  "language": "spa",
+  "characterSet": "utf8",
+  "hierarchyLevel": "dataset",
+  "status": "completed",
+  "dataUpdateFrequency": "asNeeded",
+  "description": "Registro de datos de biomasa de peces obtenidos mediante una boya ecosonda autónoma Satlink SLX fondeada en el puerto de Badalona. Recoge estimaciones de biomasa acústica integrada en toneladas para tres rangos de profundidad (-3 a -5 m, -5 a -8 m y -8 a -11 m), junto con fecha y hora de cada registro.",
+  "purpose": "Monitorizar la biomasa de peces que pasa bajo la boya por rango de profundidad en el puerto de Badalona en el marco del proyecto ONDAs.",
+  "project": "ONDAs",
+  "source": "PLASTIC BLUE ECONOMY S.L",
+  "citation": {
+    "authors": [
+      {
+        "individualName": "Adrià Gonzáles",
+        "organisation": "Universal Plastic"
+      }
+    ],
+    "publicationDate": "2026-02-28",
+    "title": "Biomasa de peces por rango de profundidad - Boya Satlink SLX - Puerto de Badalona - Proyecto ONDAs",
+    "identifier": null
+  },
+  "resourceContact": {
+    "individualName": "Adrià Gonzáles",
+    "organisationName": "Universal Plastic",
+    "organisationROR": null,
+    "email": "adria.gonzalez@universalplastic.io",
+    "orcid": null,
+    "role": "principalInvestigator"
+  },
+  "metadataContact": {
+    "individualName": "Adrià Gonzáles",
+    "organisationName": "Universal Plastic",
+    "organisationROR": null,
+    "email": "adria.gonzalez@universalplastic.io",
+    "orcid": null,
+    "role": "pointOfContact"
+  },
+  "EX_Extent": {
+    "geographicElement": {
+      "EX_GeographicBoundingBox": {
+        "westBoundLongitude": 2.2469,
+        "eastBoundLongitude": 2.2469,
+        "southBoundLatitude": 41.4501,
+        "northBoundLatitude": 41.4501
+      }
+    },
+    "crs": "EPSG:4326",
+    "location_name": "Puerto de Badalona",
+    "marine_region": "Mediterranean Sea",
+    "country_code": "ES",
+    "temporalElement": {
+      "start": "2025-11-28",
+      "end": "2026-02-28",
+      "frequency": null
+    }
+  },
+  "keywords": {
+    "theme": [
+      "fish biomass",
+      "acoustic echosounder",
+      "marine monitoring",
+      "water column",
+      "depth range"
+    ],
+    "place": [
+      "Badalona",
+      "Mediterranean Sea",
+      "Spain"
+    ]
+  },
+  "topicCategory": "environment",
+  "eov": "Fish abundance and distribution",
+  "sensor_type": "Autonomous acoustic echosounder buoy",
+  "sensor_model": "Satlink SLX",
+  "sampling_method": {
+    "label": "Autonomous acoustic echosounder moored buoy",
+    "uri": null
+  },
+  "lineage": {
+    "sampling": {
+      "method": "Acoustic echosounder moored at fixed point",
+      "equipment": "Satlink SLX autonomous echosounder buoy",
+      "mooring_depth_m": -11,
+      "location": "Puerto de Badalona"
+    },
+    "analysis": {
+      "instrument": "Satlink SLX echosounder",
+      "depth_ranges_m": [
+        {
+          "min": -3,
+          "max": -5
+        },
+        {
+          "min": -5,
+          "max": -8
+        },
+        {
+          "min": -8,
+          "max": -11
+        }
+      ],
+      "protocol_ref": null
+    },
+    "quality_control": {
+      "qc_level": "raw",
+      "validated_by": null,
+      "validation_date": null
+    }
+  },
+  "distribution": {
+    "dataFormat": "CSV",
+    "metadataFormat": "JSON",
+    "accessLevel": "public",
+    "embargo_until": null,
+    "endpoint": null,
+    "license": {
+      "id": "CC-BY-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "useLimitations": "Cite source: PLASTIC BLUE ECONOMY S.L",
+    "distributionLiability": "The data are provided as-is. PLASTIC BLUE ECONOMY S.L makes no warranty, expressed or implied, regarding these data."
+  },
+  "fields": [
+    "Date",
+    "Time",
+    "Biomass depth -3_-5 m",
+    "Biomass depth -5.00_-8 m",
+    "Biomass depth -8.00_-11 m",
+    "Biomass depth -11.00_-16 m",
+    "Biomass depth -16.00_-21 m",
+    "Biomass depth -21.00_-29 m"
+  ],
+  "column_config": {
+    "boya_biomasa_badalona.json": {
+      "Date": {
+        "field_type": "Date",
+        "value_type": "iso8601",
+        "encoding": "YYYY-MM-DD",
+        "unit": null
+      },
+      "Time": {
+        "field_type": "Time",
+        "value_type": "iso8601",
+        "encoding": "HH:MM:SS",
+        "unit": null
+      },
+      "Biomass depth -3_-5 m": {
+        "field_type": "Biomass depth -3 to -5 m",
+        "value_type": "float",
+        "dimension": "mass",
+        "unit": "Tonnes",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Biomass depth -5.00_-8 m": {
+        "field_type": "Biomass depth -5 to -8 m",
+        "value_type": "float",
+        "dimension": "mass",
+        "unit": "Tonnes",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Biomass depth -8.00_-11 m": {
+        "field_type": "Biomass depth -8 to -11 m",
+        "value_type": "float",
+        "dimension": "mass",
+        "unit": "Tonnes",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Biomass depth -11.00_-16 m": {
+        "field_type": "Biomass depth -11 to -16 m",
+        "value_type": "float",
+        "dimension": "mass",
+        "unit": "Tonnes",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Biomass depth -16.00_-21 m": {
+        "field_type": "Biomass depth -16 to -21 m",
+        "value_type": "float",
+        "dimension": "mass",
+        "unit": "Tonnes",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Biomass depth -21.00_-29 m": {
+        "field_type": "Biomass depth -21 to -29 m",
+        "value_type": "float",
+        "dimension": "mass",
+        "unit": "Tonnes",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      }
+    }
+  }
+}

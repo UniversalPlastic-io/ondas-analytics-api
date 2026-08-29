@@ -1,0 +1,126 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "locn": "http://www.w3.org/ns/locn#",
+    "schema": "https://schema.org/"
+  },
+  "@id": "urn:gaia:ondas:schema:muestras_de_agua_py_gcms",
+  "@type": [
+    "dcat:Dataset",
+    "schema:Dataset"
+  ],
+  "dct:identifier": "muestras_de_agua_py_gcms",
+  "dct:title": {
+    "@language": "es",
+    "@value": "Esquema de dataset: Muestras de agua (Py-GC/MS)"
+  },
+  "dct:description": {
+    "@language": "es",
+    "@value": "Esquema público (DCAT JSON-LD) que describe las variables/columnas esperadas para el dataset anual de muestras de agua analizadas por Py-GC/MS. Los participantes deben usar `schema:variableMeasured` como diccionario de campos; los metadatos de instancia (publisher/contact/licencia/spatial/temporal/issued, etc.) se envían en el asset anual subido a S3."
+  },
+  "dct:language": "es",
+  "dcat:keyword": [
+    "microplastics",
+    "marine pollution",
+    "surface water",
+    "water quality",
+    "polymer concentration",
+    "Mediterranean Sea",
+    "Spain",
+    "Marine debris"
+  ],
+  "dcat:distribution": {
+    "@type": "dcat:Distribution",
+    "dct:title": "dataset_annual",
+    "dct:format": "JSON",
+    "dcat:mediaType": {
+      "@id": "https://www.iana.org/assignments/media-types/application/json"
+    }
+  },
+  "schema:variableMeasured": [
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Date",
+      "schema:description": "encoding=YYYY-MM-DD; field_type=Date; value_type=iso8601"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polyethylene",
+      "schema:description": "code=PE; code_system=polymer; dimension=mass_per_volume; field_type=Polyethylene; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polypropylene",
+      "schema:description": "code=PP; code_system=polymer; dimension=mass_per_volume; field_type=Polypropylene; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polystyrene",
+      "schema:description": "code=PS; code_system=polymer; dimension=mass_per_volume; field_type=Polystyrene; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polyvinyl chloride",
+      "schema:description": "code=PVC; code_system=polymer; dimension=mass_per_volume; field_type=Polyvinyl chloride; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polyethylene terephthalate",
+      "schema:description": "code=PET; code_system=polymer; dimension=mass_per_volume; field_type=Polyethylene terephthalate; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polyamide",
+      "schema:description": "code=PA; code_system=polymer; dimension=mass_per_volume; field_type=Polyamide; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polycarbonate",
+      "schema:description": "code=PC; code_system=polymer; dimension=mass_per_volume; field_type=Polycarbonate; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polyurethane",
+      "schema:description": "code=PU; code_system=polymer; dimension=mass_per_volume; field_type=Polyurethane; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Poly(methyl methacrylate)",
+      "schema:description": "code=PMMA; code_system=polymer; dimension=mass_per_volume; field_type=Poly(methyl methacrylate); scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Acrylonitrile-butadiene-styrene",
+      "schema:description": "code=ABS; code_system=polymer; dimension=mass_per_volume; field_type=Acrylonitrile-butadiene-styrene; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polyvinyl acetate",
+      "schema:description": "code=PVAc; code_system=polymer; dimension=mass_per_volume; field_type=Polyvinyl acetate; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:name": "Polyvinyl alcohol",
+      "schema:description": "code=PVA; code_system=polymer; dimension=mass_per_volume; field_type=Polyvinyl alcohol; scale={\"type\": \"ratio\", \"precision\": 0.001, \"min\": 0}; unit=μg L⁻¹; value_type=float",
+      "schema:unitText": "μg L⁻¹"
+    }
+  ]
+}

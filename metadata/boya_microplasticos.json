@@ -1,0 +1,172 @@
+{
+  "fileIdentifier": "bouy-microplastic-nereidas",
+  "name": "bouy_microplastic_nereidas",
+  "language": "spa",
+  "characterSet": "utf8",
+  "hierarchyLevel": "dataset",
+  "status": "completed",
+  "dataUpdateFrequency": "asNeeded",
+  "description": "Partículas de microplástico detectadas por la boya de retención pasiva Seabot, con un registro por partícula: identificador, clase de tamaño, forma, tipo de polímero y color. El recuento por polímero y litro se deriva agregando los registros.",
+  "purpose": "Monitorizar la concentración y composición de microplásticos en agua marina mediante boya de retención pasiva en el marco del proyecto ONDAs.",
+  "project": "ONDAs",
+  "source": "PLASTIC BLUE ECONOMY S.L",
+  "citation": {
+    "authors": [
+      {
+        "individualName": "Adrià Gonzáles",
+        "organisation": "Universal Plastic"
+      }
+    ],
+    "publicationDate": "2026-03-07",
+    "title": "Concentración de microplásticos en agua marina - Boya Seabot - Proyecto ONDAs",
+    "identifier": null
+  },
+  "resourceContact": {
+    "individualName": "Adrià Gonzáles",
+    "organisationName": "Universal Plastic",
+    "organisationROR": null,
+    "email": "adria.gonzalez@universalplastic.io",
+    "orcid": null,
+    "role": "principalInvestigator"
+  },
+  "metadataContact": {
+    "individualName": "Adrià Gonzáles",
+    "organisationName": "Universal Plastic",
+    "organisationROR": null,
+    "email": "adria.gonzalez@universalplastic.io",
+    "orcid": null,
+    "role": "pointOfContact"
+  },
+  "EX_Extent": {
+    "geographicElement": {
+      "EX_GeographicBoundingBox": {
+        "westBoundLongitude": 2.243317,
+        "eastBoundLongitude": 2.243317,
+        "southBoundLatitude": 41.434212,
+        "northBoundLatitude": 41.434212
+      }
+    },
+    "crs": "EPSG:4326",
+    "marine_region": "Mediterranean Sea",
+    "country_code": "ES",
+    "temporalElement": {
+      "start": "2026-02-18",
+      "end": "2026-03-07",
+      "frequency": null
+    }
+  },
+  "keywords": {
+    "theme": [
+      "microplastics",
+      "marine pollution",
+      "autonomous buoy",
+      "water quality",
+      "polymer concentration",
+      "stereomicroscopy",
+      "microFTIR"
+    ],
+    "place": [
+      "Badalona",
+      "Mediterranean Sea",
+      "Spain"
+    ]
+  },
+  "topicCategory": "environment",
+  "eov": "Marine debris",
+  "sensor_type": "Passive microplastic retention buoy",
+  "sensor_model": "Seabot",
+  "sampling_method": {
+    "label": "Passive microplastic retention buoy sampling",
+    "uri": null
+  },
+  "lineage": {
+    "sampling": {
+      "method": "Autonomous buoy water sampling",
+      "equipment": "Seabot passive microplastic retention buoy"
+    },
+    "analysis": {
+      "step_1": {
+        "instrument": "Stereomicroscopy",
+        "size_limit_um": 25,
+        "parameters_measured": [
+          "count",
+          "morphology",
+          "size",
+          "color"
+        ]
+      },
+      "step_2": {
+        "instrument": "microFTIR",
+        "applied_to": "Particles detected by stereomicroscopy",
+        "parameters_measured": [
+          "polymer type"
+        ]
+      },
+      "protocol_ref": null
+    },
+    "quality_control": {
+      "qc_level": "raw",
+      "validated_by": null,
+      "validation_date": null
+    }
+  },
+  "distribution": {
+    "dataFormat": "CSV",
+    "metadataFormat": "JSON",
+    "accessLevel": "public",
+    "embargo_until": null,
+    "endpoint": null,
+    "license": {
+      "id": "CC-BY-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "useLimitations": "Cite source: PLASTIC BLUE ECONOMY S.L",
+    "distributionLiability": "The data are provided as-is. PLASTIC BLUE ECONOMY S.L makes no warranty, expressed or implied, regarding these data."
+  },
+  "fields": [
+    "Date",
+    "Particle_ID",
+    "Size",
+    "Form",
+    "Type_of_Polymer",
+    "Colour"
+  ],
+  "column_config": {
+    "boya_microplasticos_badalona.json": {
+      "Date": {
+        "field_type": "Date",
+        "value_type": "iso8601",
+        "encoding": "YYYY-MM-DD",
+        "unit": null
+      },
+      "Particle_ID": {
+        "field_type": "Particle identifier",
+        "value_type": "integer",
+        "unit": null
+      },
+      "Size": {
+        "field_type": "Size class",
+        "value_type": "string",
+        "code_system": "size_class",
+        "unit": null
+      },
+      "Form": {
+        "field_type": "Particle form",
+        "value_type": "string",
+        "code_system": "particle_form",
+        "unit": null
+      },
+      "Type_of_Polymer": {
+        "field_type": "Polymer type",
+        "value_type": "string",
+        "code_system": "polymer",
+        "unit": null
+      },
+      "Colour": {
+        "field_type": "Particle colour",
+        "value_type": "string",
+        "unit": null
+      }
+    }
+  }
+}

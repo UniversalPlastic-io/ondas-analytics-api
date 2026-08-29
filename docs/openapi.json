@@ -1,0 +1,2464 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/v1/analyses/indices": {
+      "get": {
+        "operationId": "AnalysesController_indicesHtml",
+        "summary": "Documentación HTML de índices/indicadores",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Analyses"
+        ]
+      }
+    },
+    "/v1/analyses/run": {
+      "post": {
+        "operationId": "AnalysesController_run",
+        "summary": "Ejecutar analíticas y (opcionalmente) generar plots",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysesRunRequestDto"
+              },
+              "examples": {
+                "fullYearWithPlots": {
+                  "summary": "Demo anual (genera plots WebP + PDF)",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 25
+                    },
+                    "analyses": [
+                      "all"
+                    ],
+                    "dateRange": {
+                      "start": "2025-01-01",
+                      "end": "2025-12-31"
+                    },
+                    "aggregation": {
+                      "mode": "raw"
+                    },
+                    "options": {
+                      "dataFormattedForPlots": true,
+                      "savePlotsWebp": true,
+                      "includeWarnings": true,
+                      "cache": {
+                        "mode": "bypass"
+                      }
+                    }
+                  }
+                },
+                "fullYearJsonPlotsOnly": {
+                  "summary": "Anual (solo JSON con datos para plots, sin ficheros)",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 25
+                    },
+                    "analyses": [
+                      "all"
+                    ],
+                    "dateRange": {
+                      "start": "2025-01-01",
+                      "end": "2025-12-31"
+                    },
+                    "aggregation": {
+                      "mode": "raw"
+                    },
+                    "options": {
+                      "dataFormattedForPlots": true,
+                      "savePlotsWebp": false,
+                      "includeWarnings": false,
+                      "cache": {
+                        "mode": "reuse"
+                      }
+                    }
+                  }
+                },
+                "defaultDateRangeNoOptions": {
+                  "summary": "Solo defaults (omite dateRange/aggregation/options)",
+                  "description": "Usa valores por defecto del API: dateRangeApplied se rellena con un rango predefinido, aggregation por defecto es raw, sin datos para plots y sin ficheros.",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 25
+                    },
+                    "analyses": [
+                      "all"
+                    ]
+                  }
+                },
+                "monthlyAggregation": {
+                  "summary": "Agregación mensual (serie más corta, útil para overview)",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 50
+                    },
+                    "analyses": [
+                      "basic_contamination",
+                      "eco_risk"
+                    ],
+                    "dateRange": {
+                      "start": "2025-01-01",
+                      "end": "2025-12-31"
+                    },
+                    "aggregation": {
+                      "mode": "monthly"
+                    },
+                    "options": {
+                      "dataFormattedForPlots": true,
+                      "savePlotsWebp": false,
+                      "includeWarnings": true,
+                      "cache": {
+                        "mode": "reuse",
+                        "ttlSeconds": 604800
+                      }
+                    }
+                  }
+                },
+                "specificAnalysesOnly": {
+                  "summary": "Solo análisis concretos (sin datos de plots)",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 25
+                    },
+                    "analyses": [
+                      "trophic_transfer",
+                      "plastic_origin"
+                    ],
+                    "dateRange": {
+                      "start": "2025-06-01",
+                      "end": "2025-06-30"
+                    },
+                    "options": {
+                      "includeWarnings": true,
+                      "cache": {
+                        "mode": "recompute"
+                      }
+                    }
+                  }
+                },
+                "plotsDataOnlyShortRange": {
+                  "summary": "Solo JSON para plots (rango corto, sin ficheros)",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 15
+                    },
+                    "analyses": [
+                      "all"
+                    ],
+                    "dateRange": {
+                      "start": "2025-03-01",
+                      "end": "2025-03-31"
+                    },
+                    "options": {
+                      "dataFormattedForPlots": true,
+                      "savePlotsWebp": false,
+                      "includeWarnings": true,
+                      "cache": {
+                        "mode": "reuse"
+                      }
+                    }
+                  }
+                },
+                "filesOnlyNoPlotPayload": {
+                  "summary": "Generar ficheros (WebP + PDF) omitiendo el payload de plots",
+                  "description": "Nota: savePlotsWebp implica datos para plots internamente. Aunque se omita dataFormattedForPlots, la respuesta puede incluirlo porque es necesario para generar ficheros.",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 25
+                    },
+                    "analyses": [
+                      "all"
+                    ],
+                    "dateRange": {
+                      "start": "2025-01-01",
+                      "end": "2025-01-31"
+                    },
+                    "options": {
+                      "savePlotsWebp": true,
+                      "includeWarnings": false,
+                      "cache": {
+                        "mode": "bypass"
+                      }
+                    }
+                  }
+                },
+                "forceFreshExport": {
+                  "summary": "Forzar export fresh (sin caché) + generar ficheros",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 10
+                    },
+                    "analyses": [
+                      "all"
+                    ],
+                    "dateRange": {
+                      "start": "2025-03-01",
+                      "end": "2025-03-31"
+                    },
+                    "aggregation": {
+                      "mode": "raw"
+                    },
+                    "options": {
+                      "dataFormattedForPlots": true,
+                      "savePlotsWebp": true,
+                      "includeWarnings": true,
+                      "cache": {
+                        "mode": "bypass"
+                      }
+                    }
+                  }
+                },
+                "cacheHitSecondCall": {
+                  "summary": "Cache hit (ejecuta esto DESPUÉS de ejecutar la misma request una vez)",
+                  "description": "Ejecuta esta request dos veces. La segunda debería devolver meta.cache.hit=true (mismos location/area/analyses/dateRange/aggregation/options).",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 25
+                    },
+                    "analyses": [
+                      "all"
+                    ],
+                    "dateRange": {
+                      "start": "2025-01-01",
+                      "end": "2025-12-31"
+                    },
+                    "aggregation": {
+                      "mode": "raw"
+                    },
+                    "options": {
+                      "dataFormattedForPlots": true,
+                      "savePlotsWebp": false,
+                      "includeWarnings": true,
+                      "cache": {
+                        "mode": "reuse",
+                        "ttlSeconds": 2592000
+                      }
+                    }
+                  }
+                },
+                "cacheBypassAlwaysRecompute": {
+                  "summary": "Bypass caché (recalcula siempre, pero devuelve meta de caché)",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 25
+                    },
+                    "analyses": [
+                      "all"
+                    ],
+                    "dateRange": {
+                      "start": "2025-01-01",
+                      "end": "2025-12-31"
+                    },
+                    "options": {
+                      "includeWarnings": true,
+                      "cache": {
+                        "mode": "bypass"
+                      }
+                    }
+                  }
+                },
+                "cacheRecomputeAndStore": {
+                  "summary": "Recompute y guardar (cache.mode=recompute)",
+                  "description": "Fuerza un recálculo y guarda el resultado en caché para reutilización futura (salvo si savePlotsWebp=true, que salta la caché).",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 25
+                    },
+                    "analyses": [
+                      "eco_risk"
+                    ],
+                    "dateRange": {
+                      "start": "2025-01-01",
+                      "end": "2025-12-31"
+                    },
+                    "options": {
+                      "includeWarnings": true,
+                      "cache": {
+                        "mode": "recompute",
+                        "ttlSeconds": 86400
+                      }
+                    }
+                  }
+                },
+                "warningsOff": {
+                  "summary": "Warnings desactivados (includeWarnings=false)",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 25
+                    },
+                    "analyses": [
+                      "basic_contamination"
+                    ],
+                    "dateRange": {
+                      "start": "2025-01-01",
+                      "end": "2025-01-30"
+                    },
+                    "options": {
+                      "includeWarnings": false,
+                      "cache": {
+                        "mode": "reuse"
+                      }
+                    }
+                  }
+                },
+                "quickRunNoFiles": {
+                  "summary": "Ejecución rápida (solo JSON, sin ficheros)",
+                  "value": {
+                    "location": {
+                      "lat": 40.4168,
+                      "lon": -3.7038
+                    },
+                    "area": {
+                      "type": "radius_km",
+                      "value": 25
+                    },
+                    "analyses": [
+                      "basic_contamination"
+                    ],
+                    "options": {
+                      "includeWarnings": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysesRunResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Analyses"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      }
+    },
+    "/v1/reports/request": {
+      "post": {
+        "operationId": "ReportsController_generate",
+        "summary": "Generar un informe de recogidas (PDF Blue Resilience) y subirlo a S3",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportRequestDto"
+              },
+              "examples": {
+                "monthlyAll": {
+                  "summary": "Informe mensual (todas las campañas)",
+                  "value": {
+                    "type": "monthly",
+                    "period": {
+                      "preset": "month"
+                    },
+                    "scope": {
+                      "campaign": "all"
+                    },
+                    "detail": "standard",
+                    "language": "en",
+                    "format": "pdf"
+                  }
+                },
+                "annualAll": {
+                  "summary": "Informe anual",
+                  "value": {
+                    "type": "annual",
+                    "period": {
+                      "preset": "year"
+                    },
+                    "scope": {
+                      "campaign": "all"
+                    }
+                  }
+                },
+                "campaignC2": {
+                  "summary": "Informe de campaña (c2 → Badalona)",
+                  "value": {
+                    "type": "campaign",
+                    "period": {
+                      "preset": "all"
+                    },
+                    "scope": {
+                      "campaign": "c2"
+                    }
+                  }
+                },
+                "customRange": {
+                  "summary": "Periodo personalizado",
+                  "value": {
+                    "type": "custom",
+                    "period": {
+                      "start": "2025-01-01",
+                      "end": "2025-12-31"
+                    },
+                    "scope": {
+                      "campaign": "all"
+                    }
+                  }
+                },
+                "evidenceReport": {
+                  "summary": "Informe de evidencias",
+                  "value": {
+                    "type": "evidence",
+                    "period": {
+                      "preset": "all"
+                    },
+                    "scope": {
+                      "campaign": "all"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Reports"
+        ]
+      }
+    },
+    "/v1/overview": {
+      "get": {
+        "operationId": "OverviewController_get",
+        "summary": "Resumen del dashboard: KPIs, serie kg, composición de plástico y top localizaciones",
+        "parameters": [
+          {
+            "name": "period",
+            "required": false,
+            "in": "query",
+            "description": "Por defecto 'all'",
+            "schema": {
+              "enum": [
+                "month",
+                "year",
+                "all"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaign",
+            "required": false,
+            "in": "query",
+            "description": "'all' | id de campaña (c1..c4). Por defecto 'all'",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "scope",
+            "required": false,
+            "in": "query",
+            "description": "Con token: 'mine' (por defecto) limita a los datasets de tu organización, 'all' usa todo el espacio de datos. Sin token siempre es 'all'.",
+            "schema": {
+              "enum": [
+                "mine",
+                "all"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OverviewResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Overview"
+        ]
+      }
+    },
+    "/v1/map/points": {
+      "get": {
+        "operationId": "MapController_points",
+        "summary": "Marcadores de datasets para el mapa (uno por dataset), con su info/summary",
+        "parameters": [
+          {
+            "name": "ocean",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "mediterraneo",
+                "atlantico",
+                "catambrico"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "datasetType",
+            "required": false,
+            "in": "query",
+            "description": "p. ej. recogidas_playa, boya_biomasa_slx+",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "provider",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "description": "geojson → FeatureCollection [lng,lat]",
+            "schema": {
+              "enum": [
+                "json",
+                "geojson"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "scope",
+            "required": false,
+            "in": "query",
+            "description": "Con token: 'mine' (por defecto) limita a tu organización",
+            "schema": {
+              "enum": [
+                "mine",
+                "all"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Map"
+        ]
+      }
+    },
+    "/v1/campaigns": {
+      "get": {
+        "operationId": "MarketplaceController_campaigns",
+        "summary": "Campañas (passthrough de marketplace/home → campaigns[])",
+        "parameters": [
+          {
+            "name": "username",
+            "required": false,
+            "in": "query",
+            "description": "Filtra por user.username; omitir = todas",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marketplace"
+        ]
+      }
+    },
+    "/v1/cleanups": {
+      "get": {
+        "operationId": "MarketplaceController_cleanups",
+        "summary": "Recogidas (passthrough de marketplace/home → wasteCollections[])",
+        "parameters": [
+          {
+            "name": "username",
+            "required": false,
+            "in": "query",
+            "description": "Filtra por user.username; omitir = todas",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marketplace"
+        ]
+      }
+    },
+    "/v1/organizations": {
+      "get": {
+        "operationId": "MarketplaceController_organizations",
+        "summary": "Organizaciones (passthrough de marketplace/home → organizations[])",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marketplace"
+        ]
+      }
+    },
+    "/v1/admin/organizations": {
+      "get": {
+        "operationId": "AdminController_listOrganizations",
+        "summary": "List data space participants",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createOrganization",
+        "summary": "Create a data space participant",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "AdminController_updateOrganization",
+        "summary": "Update a participant (matched by slug)",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/users": {
+      "get": {
+        "operationId": "AdminController_listUsers",
+        "summary": "List users",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createUser",
+        "summary": "Create a user attached to a participant",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/users/password": {
+      "put": {
+        "operationId": "AdminController_setPassword",
+        "summary": "Reset a user's password",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      }
+    },
+    "/v1/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "summary": "Log in with email + password",
+        "description": "Returns a JWT for the Authorization: Bearer header. The `username` field also accepts a legacy portal connector username while those accounts are being migrated.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortalLoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalLoginResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Portal auth"
+        ]
+      }
+    },
+    "/v1/auth/me": {
+      "get": {
+        "operationId": "AuthController_me",
+        "summary": "Identity behind the current token",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Portal auth"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      }
+    },
+    "/v1/sync/assets": {
+      "post": {
+        "operationId": "SyncController_syncAsset",
+        "summary": "Ingest one asset that was uploaded or updated in the data space",
+        "description": "Fetches the object, validates its container, normalizes it and replaces its observations in one transaction. Idempotent: an unchanged checksum is reported as \"unchanged\" without writing.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SyncAssetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SyncRunResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such object in the bucket"
+          },
+          "422": {
+            "description": "The object exists but is not a usable asset"
+          }
+        },
+        "tags": [
+          "Dataspace sync"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      }
+    },
+    "/v1/sync/scan": {
+      "post": {
+        "operationId": "SyncController_scan",
+        "summary": "Reconcile a prefix against the bucket",
+        "description": "Ingests new and changed objects, leaves unchanged ones alone, and flags assets whose object has disappeared (their observations are kept).",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SyncScanDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SyncRunResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Dataspace sync"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      }
+    },
+    "/v1/sync/runs": {
+      "get": {
+        "operationId": "SyncController_listRuns",
+        "summary": "Sync history",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Dataspace sync"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      }
+    },
+    "/v1/sync/runs/{id}": {
+      "get": {
+        "operationId": "SyncController_getRun",
+        "summary": "One sync run, with its per-asset results",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Dataspace sync"
+        ],
+        "security": [
+          {
+            "portal-jwt": []
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Analytics API of ONDAs DataSpace",
+    "description": "Documentación del API de analíticas. Los nombres de los campos se mantienen en inglés. POST /v1/auth/login devuelve JWT; usar cabecera Authorization: Bearer (token) en POST /v1/analyses/run.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "portal-jwt": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "description": "Token de POST /v1/auth/login"
+      }
+    },
+    "schemas": {
+      "LocationDto": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "number",
+            "example": 41.3874,
+            "description": "Latitud en WGS84."
+          },
+          "lon": {
+            "type": "number",
+            "example": 2.1686,
+            "description": "Longitud en WGS84."
+          }
+        },
+        "required": [
+          "lat",
+          "lon"
+        ]
+      },
+      "AreaDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "radius_km",
+            "enum": [
+              "radius_km"
+            ]
+          },
+          "value": {
+            "type": "number",
+            "example": 25,
+            "description": "Radio en kilómetros."
+          }
+        },
+        "required": [
+          "type",
+          "value"
+        ]
+      },
+      "DateRangeDto": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "example": "2025-01-01",
+            "description": "Fecha de inicio (incluida) en formato YYYY-MM-DD."
+          },
+          "end": {
+            "type": "string",
+            "example": "2025-01-30",
+            "description": "Fecha de fin (incluida) en formato YYYY-MM-DD."
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ]
+      },
+      "AggregationDto": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "raw",
+              "monthly"
+            ],
+            "example": "raw"
+          }
+        }
+      },
+      "CacheOptionsDto": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "reuse",
+              "recompute",
+              "bypass"
+            ],
+            "example": "reuse"
+          },
+          "ttlSeconds": {
+            "type": "number",
+            "example": 86400,
+            "description": "TTL de caché en segundos."
+          }
+        }
+      },
+      "OptionsDto": {
+        "type": "object",
+        "properties": {
+          "dataFormattedForPlots": {
+            "type": "boolean",
+            "example": true
+          },
+          "savePlotsWebp": {
+            "type": "boolean",
+            "example": false
+          },
+          "includeWarnings": {
+            "type": "boolean",
+            "example": false
+          },
+          "cache": {
+            "$ref": "#/components/schemas/CacheOptionsDto"
+          }
+        }
+      },
+      "AnalysesRunRequestDto": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "description": "Coordenadas objetivo para generar las analíticas (flujo de una sola ubicación).",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocationDto"
+              }
+            ]
+          },
+          "area": {
+            "description": "Área de interés alrededor de la ubicación. Actualmente solo se soportan áreas basadas en radio.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AreaDto"
+              }
+            ]
+          },
+          "analyses": {
+            "example": [
+              "basic_contamination",
+              "eco_risk"
+            ],
+            "description": "Lista de ids de análisis a ejecutar. Soportados: basic_contamination, trophic_transfer, eco_risk, plastic_origin. Usa \"all\" para ejecutar todos.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dateRange": {
+            "description": "Rango de fechas opcional (YYYY-MM-DD). Si se omite, el API aplica un rango por defecto. Para demos suele usarse un año completo.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DateRangeDto"
+              }
+            ]
+          },
+          "aggregation": {
+            "description": "Configuración opcional de agregación.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AggregationDto"
+              }
+            ]
+          },
+          "options": {
+            "description": "Flags opcionales para devolver datos con forma de “plots” y/o exportar ficheros (WebP + PDF).",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OptionsDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "location",
+          "area",
+          "analyses"
+        ]
+      },
+      "AnalysesRunResponseDto": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "example": "req_f59160fa"
+          },
+          "input": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "$ref": "#/components/schemas/LocationDto"
+              },
+              "area": {
+                "$ref": "#/components/schemas/AreaDto"
+              }
+            }
+          },
+          "executedAnalyses": {
+            "example": [
+              "basic_contamination",
+              "eco_risk"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "aggregation": {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "raw",
+                      "monthly"
+                    ]
+                  }
+                },
+                "required": [
+                  "mode"
+                ]
+              },
+              "dateRangeApplied": {
+                "type": "object",
+                "properties": {
+                  "start": {
+                    "type": "string"
+                  },
+                  "end": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "start",
+                  "end"
+                ]
+              },
+              "datasetsUsed": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number"
+                }
+              },
+              "cache": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "results": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Resultados específicos por análisis. La forma depende de los análisis solicitados."
+          },
+          "dataFormattedForPlots": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Presente cuando options.dataFormattedForPlots o options.savePlotsWebp es true."
+          },
+          "plotWebpPaths": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Presente cuando options.savePlotsWebp es true."
+          },
+          "plotPdfPath": {
+            "type": "string",
+            "description": "Ruta absoluta del PDF en el servidor, o su URL en S3 cuando la subida está configurada.",
+            "example": "/abs/path/to/output/plots/req_x/report.pdf"
+          },
+          "plotPdfUrl": {
+            "type": "string",
+            "description": "URL del PDF en S3 (prefirmada, o pública si S3_PUBLIC_BASE_URL está definida). El API no expone una ruta de descarga propia: si la subida a S3 no está configurada, este campo repite la ruta local de `plotPdfPath`.",
+            "example": "https://universalplastic-sedia.s3.eu-central-1.amazonaws.com/plots/req_f59160fa/report.pdf"
+          },
+          "analysisArchive": {
+            "type": "object",
+            "properties": {
+              "pdfUrl": {
+                "type": "string"
+              },
+              "jsonUrl": {
+                "type": "string"
+              },
+              "s3Prefix": {
+                "type": "string"
+              }
+            },
+            "description": "Copia del PDF y del JSON completo archivada en el bucket del espacio de datos, bajo `public/{océano}/universal_plastic/analise-{fecha}/`. Presente cuando options.savePlotsWebp es true y la subida ha tenido éxito."
+          },
+          "warnings": {
+            "description": "Avisos de la ejecución. Presente sólo cuando hay alguno.",
+            "example": [
+              "El rango solicitado excede el de los datos disponibles; se ha recortado."
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "requestId",
+          "input",
+          "executedAnalyses",
+          "meta",
+          "results"
+        ]
+      },
+      "ReportPeriodDto": {
+        "type": "object",
+        "properties": {
+          "preset": {
+            "type": "string",
+            "enum": [
+              "month",
+              "year",
+              "2024",
+              "all"
+            ]
+          },
+          "start": {
+            "type": "string",
+            "example": "2025-03-01"
+          },
+          "end": {
+            "type": "string",
+            "example": "2025-05-31"
+          }
+        }
+      },
+      "ReportScopeDto": {
+        "type": "object",
+        "properties": {
+          "campaign": {
+            "type": "string",
+            "example": "all",
+            "description": "'all' | campaign id (c1..c4)"
+          },
+          "entity": {
+            "type": "string",
+            "example": "auto"
+          }
+        }
+      },
+      "ReportIncludeDto": {
+        "type": "object",
+        "properties": {
+          "kpis": {
+            "type": "boolean",
+            "default": true
+          },
+          "map": {
+            "type": "boolean",
+            "default": true
+          },
+          "charts": {
+            "type": "boolean",
+            "default": true
+          },
+          "cleanupsList": {
+            "type": "boolean",
+            "default": true
+          },
+          "evidence": {
+            "type": "boolean",
+            "default": true
+          },
+          "plasticTypes": {
+            "type": "boolean",
+            "default": true
+          },
+          "ondas": {
+            "type": "boolean",
+            "default": false
+          },
+          "impactIndex": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+      "ReportRequestDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "annual",
+              "campaign",
+              "location",
+              "evidence",
+              "custom"
+            ],
+            "example": "monthly"
+          },
+          "period": {
+            "$ref": "#/components/schemas/ReportPeriodDto"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/ReportScopeDto"
+          },
+          "detail": {
+            "type": "string",
+            "enum": [
+              "summary",
+              "standard",
+              "detailed"
+            ],
+            "default": "standard"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "es",
+              "fr"
+            ],
+            "default": "en"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "pdf",
+              "xlsx"
+            ],
+            "default": "pdf",
+            "description": "xlsx is coerced to pdf"
+          },
+          "include": {
+            "$ref": "#/components/schemas/ReportIncludeDto"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "ReportResponseDto": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "example": "rep_ab12cd34"
+          },
+          "status": {
+            "type": "string",
+            "example": "ready"
+          },
+          "name": {
+            "type": "string",
+            "example": "Monthly cleanup report — June 2026"
+          },
+          "type": {
+            "type": "string",
+            "example": "monthly"
+          },
+          "period": {
+            "type": "string",
+            "example": "June 2026"
+          },
+          "generatedAt": {
+            "type": "string",
+            "example": "2026-06-18T10:32:00Z"
+          },
+          "format": {
+            "type": "string",
+            "example": "pdf"
+          },
+          "size": {
+            "type": "string",
+            "example": "0.4 MB"
+          },
+          "downloadUrl": {
+            "type": "string",
+            "example": "https://universalplastic-sedia.s3.eu-central-1.amazonaws.com/public/mediterraneo/universal_plastic/reports/rep_ab12cd34.pdf"
+          }
+        },
+        "required": [
+          "requestId",
+          "status",
+          "name",
+          "type",
+          "period",
+          "generatedAt",
+          "format",
+          "size",
+          "downloadUrl"
+        ]
+      },
+      "OverviewPeriodDto": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "example": "1970-01-01"
+          },
+          "end": {
+            "type": "string",
+            "example": "2999-12-31"
+          },
+          "label": {
+            "type": "string",
+            "example": "All time"
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "label"
+        ]
+      },
+      "OverviewKpisDto": {
+        "type": "object",
+        "properties": {
+          "kg": {
+            "type": "number",
+            "example": 12540
+          },
+          "cleanups": {
+            "type": "number",
+            "example": 154
+          },
+          "volunteers": {
+            "type": "number",
+            "example": 327
+          },
+          "locations": {
+            "type": "number",
+            "example": 24
+          },
+          "km": {
+            "type": "number",
+            "example": 562
+          },
+          "hours": {
+            "type": "number",
+            "example": 428
+          },
+          "ondas": {
+            "type": "number",
+            "example": 154
+          },
+          "evidence": {
+            "type": "number",
+            "example": 1246
+          },
+          "verified": {
+            "type": "number",
+            "example": 100
+          },
+          "avgKg": {
+            "type": "number",
+            "example": 81.4
+          },
+          "index": {
+            "type": "number",
+            "example": 78
+          }
+        },
+        "required": [
+          "kg",
+          "cleanups",
+          "volunteers",
+          "locations",
+          "km",
+          "hours",
+          "ondas",
+          "evidence",
+          "verified",
+          "avgKg",
+          "index"
+        ]
+      },
+      "OverviewSeriesPointDto": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "2025"
+          },
+          "kg": {
+            "type": "number",
+            "example": 1820
+          }
+        },
+        "required": [
+          "label",
+          "kg"
+        ]
+      },
+      "OverviewPlasticTypeDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "PET"
+          },
+          "pct": {
+            "type": "number",
+            "example": 32
+          },
+          "color": {
+            "type": "string",
+            "example": "#00003F"
+          }
+        },
+        "required": [
+          "type",
+          "pct",
+          "color"
+        ]
+      },
+      "OverviewTopLocationDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Barcelona"
+          },
+          "kg": {
+            "type": "number",
+            "example": 342
+          },
+          "cleanups": {
+            "type": "number",
+            "example": 12
+          }
+        },
+        "required": [
+          "name",
+          "kg",
+          "cleanups"
+        ]
+      },
+      "BiomassSectionDto": {
+        "type": "object",
+        "properties": {
+          "meanTonnes": {
+            "type": "number",
+            "example": 41.2
+          },
+          "units": {
+            "type": "string",
+            "example": "Tonnes"
+          },
+          "readings": {
+            "type": "number",
+            "example": 3611
+          },
+          "series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OverviewSeriesPointDto"
+            }
+          }
+        },
+        "required": [
+          "meanTonnes",
+          "units",
+          "readings",
+          "series"
+        ]
+      },
+      "CountPairDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "PE"
+          },
+          "count": {
+            "type": "number",
+            "example": 42
+          }
+        },
+        "required": [
+          "type",
+          "count"
+        ]
+      },
+      "SizePairDto": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "string",
+            "example": "Microplastics"
+          },
+          "count": {
+            "type": "number",
+            "example": 60
+          }
+        },
+        "required": [
+          "size",
+          "count"
+        ]
+      },
+      "MicroplasticsSectionDto": {
+        "type": "object",
+        "properties": {
+          "particles": {
+            "type": "number",
+            "example": 105
+          },
+          "byPolymer": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CountPairDto"
+            }
+          },
+          "bySize": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SizePairDto"
+            }
+          }
+        },
+        "required": [
+          "particles",
+          "byPolymer",
+          "bySize"
+        ]
+      },
+      "EnvironmentSectionDto": {
+        "type": "object",
+        "properties": {
+          "readings": {
+            "type": "number",
+            "example": 3865
+          },
+          "meanSeaSurfaceTemperatureC": {
+            "type": "object",
+            "example": 18.4,
+            "nullable": true
+          },
+          "meanWindSpeedMs": {
+            "type": "object",
+            "example": 4.7,
+            "nullable": true
+          }
+        },
+        "required": [
+          "readings",
+          "meanSeaSurfaceTemperatureC",
+          "meanWindSpeedMs"
+        ]
+      },
+      "OverviewResponseDto": {
+        "type": "object",
+        "properties": {
+          "period": {
+            "$ref": "#/components/schemas/OverviewPeriodDto"
+          },
+          "scope": {
+            "type": "string",
+            "example": "All campaigns"
+          },
+          "sourcesIncluded": {
+            "example": [
+              "recogidas_playa",
+              "boya_biomasa",
+              "boya_microplasticos",
+              "environmental_boya"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kpis": {
+            "$ref": "#/components/schemas/OverviewKpisDto"
+          },
+          "series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OverviewSeriesPointDto"
+            }
+          },
+          "plasticTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OverviewPlasticTypeDto"
+            }
+          },
+          "topLocations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OverviewTopLocationDto"
+            }
+          },
+          "biomass": {
+            "$ref": "#/components/schemas/BiomassSectionDto"
+          },
+          "microplastics": {
+            "$ref": "#/components/schemas/MicroplasticsSectionDto"
+          },
+          "environment": {
+            "$ref": "#/components/schemas/EnvironmentSectionDto"
+          }
+        },
+        "required": [
+          "period",
+          "scope",
+          "sourcesIncluded",
+          "kpis",
+          "series",
+          "plasticTypes",
+          "topLocations"
+        ]
+      },
+      "CleanupEventDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2025-11-10"
+          },
+          "kg": {
+            "type": "number",
+            "example": 22.4
+          },
+          "volunteers": {
+            "type": "number",
+            "example": 5
+          },
+          "km": {
+            "type": "number",
+            "example": 1.8
+          },
+          "duration": {
+            "type": "object",
+            "example": "1:12:00",
+            "nullable": true
+          },
+          "evidence": {
+            "type": "number",
+            "example": 3
+          }
+        },
+        "required": [
+          "date",
+          "kg",
+          "volunteers",
+          "km",
+          "duration",
+          "evidence"
+        ]
+      },
+      "MapPointDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "atlantico/innoceana/recogidas_playa_tenerife"
+          },
+          "name": {
+            "type": "string",
+            "example": "Tenerife — Coastal cleanup"
+          },
+          "datasetType": {
+            "type": "string",
+            "example": "recogidas_playa"
+          },
+          "label": {
+            "type": "string",
+            "example": "Coastal cleanup"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "cleanup",
+              "biomass",
+              "microplastics",
+              "environmental",
+              "atmospheric",
+              "oceanographic"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "example": "#00003F"
+          },
+          "provider": {
+            "type": "string",
+            "example": "innoceana"
+          },
+          "ocean": {
+            "type": "string",
+            "example": "atlantico"
+          },
+          "lat": {
+            "type": "number",
+            "example": 28.1876
+          },
+          "lng": {
+            "type": "number",
+            "example": -16.6596
+          },
+          "records": {
+            "type": "object",
+            "example": 8,
+            "nullable": true
+          },
+          "dateRange": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DateRangeDto"
+              }
+            ]
+          },
+          "format": {
+            "type": "string",
+            "example": "rows"
+          },
+          "units": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {
+              "Biomass depth -3_-5 m": "Tonnes"
+            }
+          },
+          "url": {
+            "type": "string",
+            "example": "https://universalplastic-sedia.s3.eu-central-1.amazonaws.com/public/atlantico/innoceana/recogidas_playa_tenerife.json"
+          },
+          "metadataSchemaRef": {
+            "type": "object",
+            "nullable": true
+          },
+          "warnings": {
+            "example": [
+              "coords corrected 31.483,-11.926 → Tenerife (28.188,-16.660)"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "summary": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Type-specific headline stats",
+            "example": {
+              "kg": 144.87,
+              "volunteers": 31,
+              "cleanups": 8
+            }
+          },
+          "cleanupsList": {
+            "description": "cleanup datasets only",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CleanupEventDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "datasetType",
+          "label",
+          "category",
+          "color",
+          "provider",
+          "ocean",
+          "lat",
+          "lng",
+          "records",
+          "format",
+          "url",
+          "metadataSchemaRef",
+          "warnings"
+        ]
+      },
+      "MapResponseDto": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number",
+            "example": 22
+          },
+          "bounds": {
+            "type": "object",
+            "example": [
+              [
+                28.1876,
+                -16.6596
+              ],
+              [
+                43.5721,
+                2.795
+              ]
+            ],
+            "description": "[[minLat,minLng],[maxLat,maxLng]] for map.fitBounds",
+            "nullable": true
+          },
+          "points": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MapPointDto"
+            }
+          }
+        },
+        "required": [
+          "count",
+          "bounds",
+          "points"
+        ]
+      },
+      "OrganizationS3Dto": {
+        "type": "object",
+        "properties": {
+          "bucket": {
+            "type": "string",
+            "example": "universalplastic-sedia"
+          },
+          "prefix": {
+            "type": "string",
+            "example": "public/mediterraneo/universal_plastic/",
+            "description": "This participant's space in the data space bucket"
+          }
+        }
+      },
+      "CreateOrganizationDto": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "example": "innoceana",
+            "description": "Stable slug, lowercase, no spaces"
+          },
+          "name": {
+            "type": "string",
+            "example": "Innoceana"
+          },
+          "type": {
+            "type": "string",
+            "example": "NGO",
+            "enum": [
+              "Company",
+              "NGO",
+              "Institution",
+              "Campaign"
+            ]
+          },
+          "territory": {
+            "type": "string",
+            "example": "Costa Brava, Catalunya, Spain"
+          },
+          "description": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string",
+            "example": "innoceana.org"
+          },
+          "contact": {
+            "type": "string",
+            "example": "impact@innoceana.org"
+          },
+          "publicProfile": {
+            "type": "boolean",
+            "default": true
+          },
+          "dataProviderIds": {
+            "example": [
+              "innoceana"
+            ],
+            "description": "Every spelling of this org dataProviderId found in its files",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "providerFolders": {
+            "example": [
+              "innoceana"
+            ],
+            "description": "S3 provider folders owned by this org (public/{ocean}/{folder}/)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "s3": {
+            "$ref": "#/components/schemas/OrganizationS3Dto"
+          }
+        },
+        "required": [
+          "slug",
+          "name"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "impact@innoceana.org"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 10,
+            "description": "At least 10 characters"
+          },
+          "name": {
+            "type": "string",
+            "example": "Innoceana Impact Team"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "provider",
+              "viewer"
+            ],
+            "example": "provider"
+          },
+          "organizationSlug": {
+            "type": "string",
+            "example": "innoceana",
+            "description": "Required for role \"provider\""
+          },
+          "legacyUsername": {
+            "type": "string",
+            "example": "user_innoceana",
+            "description": "Legacy portal connector username"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "name",
+          "role"
+        ]
+      },
+      "SetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "impact@innoceana.org"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 10
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "PortalLoginDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "impact@universalplastic.io",
+            "description": "Email of the user. Legacy portal connector usernames are still accepted."
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      },
+      "LoginUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "object",
+            "nullable": true
+          },
+          "name": {
+            "type": "object",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "provider",
+              "viewer"
+            ]
+          },
+          "organization": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "email",
+          "name",
+          "role",
+          "organization"
+        ]
+      },
+      "PortalLoginResponseDto": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string"
+          },
+          "token_type": {
+            "type": "string",
+            "enum": [
+              "Bearer"
+            ]
+          },
+          "expires_in": {
+            "type": "number",
+            "description": "Token TTL in seconds"
+          },
+          "username": {
+            "type": "string",
+            "description": "Email, or the legacy connector username"
+          },
+          "user": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LoginUserDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "access_token",
+          "token_type",
+          "expires_in",
+          "username",
+          "user"
+        ]
+      },
+      "SyncAssetDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "example": "public/mediterraneo/port_badalona/boya_biomasa_badalona.json",
+            "description": "S3 object key of the asset that was uploaded or updated"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://universalplastic-sedia.s3.eu-central-1.amazonaws.com/public/…/file.json",
+            "description": "Full object URL — an alternative to `key`"
+          },
+          "force": {
+            "type": "boolean",
+            "default": false,
+            "description": "Re-ingest even when the object checksum is unchanged"
+          }
+        }
+      },
+      "SyncResultRowDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "created",
+              "updated",
+              "unchanged",
+              "missing",
+              "failed",
+              "skipped"
+            ]
+          },
+          "assetId": {
+            "type": "string"
+          },
+          "observations": {
+            "type": "number"
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "action"
+        ]
+      },
+      "SyncRunResponseDto": {
+        "type": "object",
+        "properties": {
+          "runId": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "asset",
+              "scan"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "running",
+              "ok",
+              "partial",
+              "failed"
+            ]
+          },
+          "startedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "finishedAt": {
+            "type": "object",
+            "nullable": true
+          },
+          "totals": {
+            "type": "object",
+            "description": "assets/created/updated/unchanged/missing/failed/observations/warnings"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SyncResultRowDto"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "runId",
+          "kind",
+          "status",
+          "startedAt",
+          "finishedAt",
+          "totals",
+          "results",
+          "warnings"
+        ]
+      },
+      "SyncScanDto": {
+        "type": "object",
+        "properties": {
+          "prefix": {
+            "type": "string",
+            "example": "public/mediterraneo/",
+            "description": "Prefix to reconcile. Defaults to your organization space, or the whole root for admins."
+          },
+          "dryRun": {
+            "type": "boolean",
+            "default": false,
+            "description": "Report the plan without writing anything"
+          },
+          "force": {
+            "type": "boolean",
+            "default": false,
+            "description": "Re-ingest every object, changed or not"
+          }
+        }
+      }
+    }
+  }
+}

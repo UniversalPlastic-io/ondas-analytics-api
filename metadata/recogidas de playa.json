@@ -1,0 +1,301 @@
+{
+  "fileIdentifier": "org-manual-ondas-ph4pm9",
+  "name": "org-manual-ondas-ph4pm9",
+  "language": "spa",
+  "characterSet": "utf8",
+  "hierarchyLevel": "dataset",
+  "status": "completed",
+  "dataUpdateFrequency": "asNeeded",
+
+  "description": "Dataset de ciencia ciudadana generado por la app móvil Universal Plastic v7.0.0, plataforma de economía azul. Permite registrar limpiezas de plásticos costeros capturando kg totales, participantes, duración, distancia y composición (PET/HDPE/PVC/LDPE/PP/PS en %) vía IA en imágenes. Implementa un sistema de dMRV (digital Measurement, Reporting and Verification) para medición, reporte y verificación automatizada y trazable de residuos.",
+
+  "purpose": "Registrar y cuantificar la recogida de residuos plásticos en playas costeras mediante ciencia ciudadana en el marco del proyecto ONDAs.",
+
+  "project": "ONDAs",
+  "source": "PLASTIC BLUE ECONOMY S.L",
+
+  "citation": {
+    "authors": [
+      {
+        "individualName": "Adrià Gonzáles",
+        "organisation": "Universal Plastic"
+      }
+    ],
+    "publicationDate": "2026-11-07",
+    "title": "Recogida de residuos plásticos en playas costeras - Proyecto ONDAs",
+    "identifier": null
+  },
+
+  "resourceContact": {
+    "individualName": "Adrià Gonzáles",
+    "organisationName": "Universal Plastic",
+    "organisationROR": null,
+    "email": "adria.gonzalez@universalplastic.io",
+    "orcid": null,
+    "role": "principalInvestigator"
+  },
+
+  "metadataContact": {
+    "individualName": "Adrià Gonzáles",
+    "organisationName": "Universal Plastic",
+    "organisationROR": null,
+    "email": "adria.gonzalez@universalplastic.io",
+    "orcid": null,
+    "role": "pointOfContact"
+  },
+
+  "EX_Extent": {
+    "geographicElement": {
+      "EX_GeographicBoundingBox": {
+        "westBoundLongitude": 2.190546,
+        "eastBoundLongitude": 2.190546,
+        "southBoundLatitude": 41.375547,
+        "northBoundLatitude": 41.375547
+      }
+    },
+    "crs": "EPSG:4326",
+    "marine_region": "Mediterranean Sea",
+    "country_code": "ES",
+    "temporalElement": {
+      "start": "2026-01-15",
+      "end": "2026-11-07",
+      "frequency": null
+    }
+  },
+
+  "keywords": {
+    "theme": [
+      "beach cleanup",
+      "coastal litter",
+      "plastic waste",
+      "citizen science",
+      "marine debris"
+    ],
+    "place": [
+      "Mediterranean Sea",
+      "Spain"
+    ]
+  },
+
+  "topicCategory": "environment",
+  "eov": "Marine debris",
+
+  "sampling_method": {
+    "label": "Manual coastal cleanup",
+    "uri": null
+  },
+
+  "lineage": {
+    "sampling": {
+      "method": "Manual coastal cleanup",
+      "equipment": "Mobile app Universal Plastic v7.0.0",
+      "data_type": "Citizen science"
+    },
+    "analysis": {
+      "instrument": "AI image classification",
+      "protocol_ref": "dMRV"
+    },
+    "quality_control": {
+      "qc_level": "raw",
+      "validated_by": null,
+      "validation_date": null
+    }
+  },
+
+  "distribution": {
+    "dataFormat": "CSV",
+    "metadataFormat": "JSON",
+    "accessLevel": "public",
+    "embargo_until": null,
+    "endpoint": null,
+    "license": {
+      "id": "CC-BY-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "useLimitations": "Cite source: PLASTIC BLUE ECONOMY S.L",
+    "distributionLiability": "The data are provided as-is. PLASTIC BLUE ECONOMY S.L makes no warranty, expressed or implied, regarding these data."
+  },
+
+  "fields": [
+    "Date",
+    "Start point",
+    "End point",
+    "Plastic waste collected",
+    "Number of participants",
+    "Walking distance",
+    "Cleanup duration",
+    "Polyethylene terephthalate",
+    "High-density polyethylene",
+    "Polyvinyl chloride",
+    "Low-density polyethylene",
+    "Polypropylene",
+    "Polystyrene",
+    "Others",
+    "Collected waste image"
+  ],
+
+  "column_config": {
+    "WasteCollected_UP.csv": {
+      "Date": {
+        "field_type": "Date",
+        "value_type": "iso8601",
+        "encoding": "YYYY-MM-DD",
+        "unit": null
+      },
+      "Start point": {
+        "field_type": "Start point",
+        "value_type": "geo_point",
+        "crs": "EPSG:4326",
+        "encoding": "lat_lon_array",
+        "unit": null
+      },
+      "End point": {
+        "field_type": "End point",
+        "value_type": "geo_point",
+        "crs": "EPSG:4326",
+        "encoding": "lat_lon_array",
+        "unit": null
+      },
+      "Plastic waste collected": {
+        "field_type": "Plastic waste collected",
+        "value_type": "float",
+        "dimension": "mass",
+        "unit": "kg",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Number of participants": {
+        "field_type": "Number of participants",
+        "value_type": "int",
+        "dimension": "count",
+        "unit": null,
+        "scale": {
+          "type": "ratio",
+          "precision": 1,
+          "min": 0
+        }
+      },
+      "Walking distance": {
+        "field_type": "Walking distance",
+        "value_type": "float",
+        "dimension": "length",
+        "unit": "km",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Cleanup duration": {
+        "field_type": "Cleanup duration",
+        "value_type": "int",
+        "dimension": "time",
+        "unit": "s",
+        "scale": {
+          "type": "ratio",
+          "precision": 1,
+          "min": 0
+        }
+      },
+      "Polyethylene terephthalate": {
+        "field_type": "Polyethylene terephthalate",
+        "value_type": "float",
+        "dimension": "fraction",
+        "code_system": "polymer",
+        "code": "PET",
+        "unit": "%",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "High-density polyethylene": {
+        "field_type": "High-density polyethylene",
+        "value_type": "float",
+        "dimension": "fraction",
+        "code_system": "polymer",
+        "code": "HDPE",
+        "unit": "%",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polyvinyl chloride": {
+        "field_type": "Polyvinyl chloride",
+        "value_type": "float",
+        "dimension": "fraction",
+        "code_system": "polymer",
+        "code": "PVC",
+        "unit": "%",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Low-density polyethylene": {
+        "field_type": "Low-density polyethylene",
+        "value_type": "float",
+        "dimension": "fraction",
+        "code_system": "polymer",
+        "code": "LDPE",
+        "unit": "%",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polypropylene": {
+        "field_type": "Polypropylene",
+        "value_type": "float",
+        "dimension": "fraction",
+        "code_system": "polymer",
+        "code": "PP",
+        "unit": "%",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Polystyrene": {
+        "field_type": "Polystyrene",
+        "value_type": "float",
+        "dimension": "fraction",
+        "code_system": "polymer",
+        "code": "PS",
+        "unit": "%",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Others": {
+        "field_type": "Others",
+        "value_type": "float",
+        "dimension": "fraction",
+        "code_system": "polymer",
+        "code": "OTHER",
+        "unit": "%",
+        "scale": {
+          "type": "ratio",
+          "precision": 0.001,
+          "min": 0
+        }
+      },
+      "Collected waste image": {
+        "field_type": "Collected waste image",
+        "value_type": "url",
+        "unit": "URL"
+      }
+    }
+  }
+}
