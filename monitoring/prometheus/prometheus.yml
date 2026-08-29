@@ -1,0 +1,17 @@
+# Prometheus del perfil `monitoring` de docker-compose.
+# Documentación: docs/deployment/03-monitoring.md
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: ondas-analytics-api
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['api:3000']
+        labels:
+          service: ondas-analytics-api
+
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']

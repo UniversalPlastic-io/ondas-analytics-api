@@ -198,6 +198,7 @@ vez**. Guárdala antes de cerrar la terminal, o regenérala después con
 | `npm run seed` | Semilla de organizaciones y usuarios |
 | `npm run backfill` | Carga inicial del read model desde el bucket |
 | `npm run reference:generate` | Regenera las series de referencia (`-- --upload` para publicarlas) |
+| `npm run validate:precision` | Informe de validación: fidelidad de ingesta, exactitud de agregación, reproducibilidad y cobertura |
 | `npm run users:export` · `npm run users:reset` | Exportar usuarios / restablecer contraseña |
 
 ---
@@ -272,7 +273,7 @@ Contrato completo, esquemas de respuesta y códigos de error: `/docs`.
 
 ## 5. Despliegue
 
-Dos ejemplos completos y reproducibles:
+Tres ejemplos completos y reproducibles:
 
 1. **[Docker Compose](docs/deployment/01-docker-compose.md)** — API + MongoDB en
    contenedores, de cero a servicio funcionando con un comando. Para evaluación,
@@ -280,6 +281,9 @@ Dos ejemplos completos y reproducibles:
 2. **[Servidor Linux con Nginx + PM2](docs/deployment/02-nginx-pm2.md)** — la
    topología en uso en producción: TLS, servicio supervisado por PM2 y el SPA
    servido como ficheros estáticos en el mismo origen que el API.
+3. **[Monitorización con Prometheus y Grafana](docs/deployment/03-monitoring.md)**
+   — métricas en `GET /metrics` y cuadro de mando provisionado, en el perfil
+   `monitoring` del mismo `docker-compose.yml`.
 
 ---
 
@@ -291,6 +295,7 @@ Dos ejemplos completos y reproducibles:
 │   ├── mongo/            conexión Mongoose
 │   └── main.ts           bootstrap, CORS y configuración de Swagger
 ├── scripts/              seed, backfill, gestión de usuarios, generadores de muestras
+├── monitoring/           Prometheus y Grafana (dashboard versionado)
 ├── frontend/             SPA de demostración (React + Vite)
 ├── docs/                 documentación técnica y de despliegue
 └── config/               configuración local (no versionada)
@@ -300,13 +305,28 @@ Los tests viven junto al código que prueban, como `*.spec.ts`.
 
 ---
 
-## 7. Notas de versión
+## 7. Validación
+
+El informe de validación —fidelidad de ingesta, exactitud de agregación,
+reproducibilidad, cobertura de consulta y concordancia entre fuentes— está en
+[docs/validacion-precision.md](docs/validacion-precision.md) y se regenera con:
+
+```bash
+npm run validate:precision
+```
+
+Termina con código distinto de cero si alguna comprobación falla o aparece
+pérdida de datos inexplicada, así que sirve como comprobación automatizada.
+
+---
+
+## 8. Notas de versión
 
 Cambios por versión en [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
-## 8. Licencia
+## 9. Licencia
 
 Apache License 2.0 — ver [LICENSE](LICENSE) y [NOTICE](NOTICE).
 

@@ -8,6 +8,7 @@ import { IngestService, InvalidAssetError, UnsupportedKeyError } from './ingest.
 import { headObject, listKeysWithFallback, ObjectNotFoundError } from './s3-reader';
 import { parseKey } from './s3-keys';
 import { ROOT_PREFIX } from './dataspace.constants';
+import { MetricsService } from '../../metrics/metrics.service';
 
 export interface SyncActor {
   userId: string | null;
@@ -55,7 +56,12 @@ export class SyncService {
     @InjectModel(Asset.name) private readonly assets: Model<Asset>,
     @InjectModel(SyncRun.name) private readonly runs: Model<SyncRun>,
     @InjectModel(Organization.name) private readonly organizations: Model<Organization>,
-  ) {}
+    private readonly metrics: MetricsService,
+  ) {
+    // The gauge is read from Mongo on every scrape rather than kept in step
+    // with each write: an ingest is not the only thing that changes the count.
+    this.metrics.bindActiveAssets(() => this.assets.countDocuments({ status: 'active' }).exec());
+  }
 
   /** The S3 prefixes an actor may sync. Admins get the whole root. */
   private async allowedPrefixes(actor: SyncActor): Promise<string[] | null> {
@@ -125,9 +131,12 @@ export class SyncService {
       .findByIdAndUpdate(runId, { $set: { results, totals, warnings, status, finishedAt } }, { new: true })
       .exec();
 
+    const kind = run?.kind ?? 'scan';
+    this.metrics.recordSyncRun({ kind, status, totals, warnings });
+
     return {
       runId: String(runId),
-      kind: run?.kind ?? 'scan',
+      kind,
       status,
       startedAt: run?.startedAt ?? finishedAt,
       finishedAt,

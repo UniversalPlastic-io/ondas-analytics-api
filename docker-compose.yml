@@ -7,6 +7,9 @@
 #   docker compose run --rm backfill    # carga del read model (necesita el bucket)
 #   open http://localhost:3000/docs
 #
+#   docker compose --profile monitoring up -d   # + Prometheus y Grafana
+#   open http://localhost:3001                  # Grafana (admin/admin por defecto)
+#
 # Compose interpola las variables desde .env, así que si MONGODB_URI apunta a
 # Atlas se usa ese valor y el contenedor de Mongo queda sin utilizar.
 
@@ -76,6 +79,45 @@ services:
       mongo:
         condition: service_healthy
 
+  # Perfil `monitoring`: no arranca con `docker compose up` a secas.
+  #   docker compose --profile monitoring up -d
+  # Documentación: docs/deployment/03-monitoring.md
+  prometheus:
+    profiles: ["monitoring"]
+    image: prom/prometheus:v2.54.1
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=15d
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    # Sin `ports`: solo Grafana lo consulta, por la red interna de Compose.
+    depends_on:
+      - api
+
+  grafana:
+    profiles: ["monitoring"]
+    image: grafana/grafana:11.2.0
+    restart: unless-stopped
+    environment:
+      # Credenciales de evaluación local. En un despliegue accesible desde fuera
+      # hay que cambiarlas y poner TLS por delante.
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+    ports:
+      - "${GRAFANA_PORT:-3001}:3000"
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
 volumes:
   mongo-data:
   plots:
+  prometheus-data:
+  grafana-data:

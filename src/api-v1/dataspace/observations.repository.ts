@@ -235,7 +235,10 @@ export class ObservationsRepository {
       }>([
         { $match: { ...match, [`values.${field}`]: { $type: 'string' } } },
         { $group: { _id: `$values.${field}`, count: { $sum: 1 } } },
-        { $sort: { count: -1 } },
+        // `_id` breaks ties: sorting by count alone leaves equally frequent
+        // values in an arbitrary order, so two identical requests returned the
+        // same polymers in a different sequence.
+        { $sort: { count: -1, _id: 1 } },
       ])
       .exec();
     return rows.map((r) => ({ key: r._id, count: r.count }));

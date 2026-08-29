@@ -5,6 +5,37 @@ Versionado según [SemVer](https://semver.org/lang/es/).
 
 ---
 
+## [1.1.0] — 2026-08-29
+
+### Añadido
+
+- **Monitorización.** Métricas Prometheus en `GET /metrics`: latencia y códigos
+  por plantilla de ruta, ingestas por desenlace, observaciones escritas, avisos
+  de validación, analíticas ejecutadas por tipo y activos vigentes en el modelo
+  de lectura. Prometheus y Grafana en el perfil `monitoring` de
+  `docker-compose.yml`, con el cuadro de mando versionado y provisionado, y guía
+  en [`docs/deployment/03-monitoring.md`](docs/deployment/03-monitoring.md).
+  Se mide sobre el evento `finish` de la respuesta y no con un interceptor,
+  porque las guardas se ejecutan antes que los interceptores: así las peticiones
+  rechazadas por autenticación o rol también quedan contadas.
+- **Informe de validación.** `npm run validate:precision` mide fidelidad de
+  ingesta, exactitud de agregación, reproducibilidad, cobertura de consulta y
+  concordancia entre fuentes independientes, y falla con código distinto de cero
+  ante cualquier regresión. Resultados en
+  [`docs/validacion-precision.md`](docs/validacion-precision.md).
+
+### Corregido
+
+- **La lista de polímeros de la boya no era determinista.** La agregación que la
+  produce ordenaba por número de detecciones sin criterio de desempate, así que
+  dos peticiones idénticas devolvían los polímeros de igual frecuencia en orden
+  distinto. El índice de Jaccard no se veía afectado, por ser una operación de
+  conjuntos, pero la respuesta publicada cambiaba entre ejecuciones. Lo detectó
+  la comprobación de reproducibilidad del informe de validación en su primera
+  ejecución.
+
+---
+
 ## [1.0.0] — 2026-08-29
 
 Primera versión pública del **ONDAs Analytics API**, el componente desarrollado
@@ -128,7 +159,12 @@ residuos marinos que antes se calculaban en cuadernos de análisis.
   un comando.
 - Despliegue en servidor Linux con Nginx y PM2, con el SPA y el API bajo un
   mismo origen.
-- Dos guías reproducibles en [`docs/deployment/`](docs/deployment/).
+- **Monitorización**: métricas Prometheus en `GET /metrics` —latencia y códigos
+  por ruta, ingestas, observaciones, avisos, analíticas ejecutadas y activos
+  vigentes—, con Prometheus y Grafana en el perfil `monitoring` de Compose y un
+  cuadro de mando versionado. Se mide sobre el evento `finish` de la respuesta,
+  de modo que las peticiones rechazadas por una guarda también quedan contadas.
+- Tres guías reproducibles en [`docs/deployment/`](docs/deployment/).
 
 ### Calidad
 
@@ -140,4 +176,5 @@ residuos marinos que antes se calculaban en cuadernos de análisis.
 
 - Publicado bajo **Apache License 2.0** (`LICENSE`, `NOTICE`).
 
+[1.1.0]: https://github.com/UniversalPlastic-io/ondas-analytics-api/releases/tag/v1.1.0
 [1.0.0]: https://github.com/UniversalPlastic-io/ondas-analytics-api/releases/tag/v1.0.0

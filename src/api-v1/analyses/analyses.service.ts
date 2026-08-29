@@ -12,6 +12,7 @@ import { savePlotsAsWebp } from './analyses-plot-webp';
 import { uploadPlotsToS3, uploadAnalysisResultToS3 } from './analyses-s3';
 import { hashString, mulberry32 } from '../deterministic-rng';
 import { S3Scenario, ScenarioLoader } from './analyses-scenario';
+import { MetricsService } from '../../metrics/metrics.service';
 
 type CacheEntry = {
   expiresAtMs: number;
@@ -267,7 +268,10 @@ function rollingMean7(values: number[]): Array<number | null> {
 
 @Injectable()
 export class AnalysesService {
-  constructor(private readonly scenario: ScenarioLoader) {}
+  constructor(
+    private readonly scenario: ScenarioLoader,
+    private readonly metrics: MetricsService,
+  ) {}
 
   private readonly cache = new Map<string, CacheEntry>();
 
@@ -277,6 +281,9 @@ export class AnalysesService {
   ): Promise<AnalysesRunResponse> {
     const aggregationMode: AggregationMode = req.aggregation?.mode === 'monthly' ? 'monthly' : 'raw';
     const selectedAnalyses = normalizeAnalyses(req.analyses);
+    // Counted per analysis, not per request: `["all"]` is four analyses, and a
+    // per-request counter would hide which indicator is actually being used.
+    this.metrics.recordAnalyses(selectedAnalyses);
 
     const dateRangeApplied = req.dateRange?.start && req.dateRange?.end
       ? { start: dateToIsoDay(req.dateRange.start), end: dateToIsoDay(req.dateRange.end) }

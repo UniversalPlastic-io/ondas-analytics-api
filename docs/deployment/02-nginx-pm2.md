@@ -91,6 +91,14 @@ server {
     try_files $uri $uri/ /analyses/index.html;
   }
 
+  # /metrics no requiere autenticación y revela rutas internas, volúmenes y
+  # tasas de error: Prometheus lo recoge por 127.0.0.1, no por el proxy público.
+  # Ver docs/deployment/03-monitoring.md.
+  location = /api/metrics {
+    deny all;
+    return 404;
+  }
+
   # API: /api/v1/... → :3000/v1/...
   location /api/ {
     proxy_pass         http://127.0.0.1:3000/;
@@ -187,3 +195,5 @@ el siguiente `git pull`.
 | El SPA carga en blanco con 404 de los assets | El SPA no se compiló con `--base=/analyses/` | Recompilar y volver a sincronizar |
 | Recargar una ruta interna del SPA da 404 | Falta el `try_files` de Nginx | Añadir el bloque `location /analyses/` de la §2 |
 | 401 en todas las llamadas tras un despliegue | Se cambió `PORTAL_JWT_SECRET` | Esperado: invalida los tokens emitidos. Volver a hacer login |
+
+La monitorización de este despliegue está en el [ejemplo 3](03-monitoring.md).

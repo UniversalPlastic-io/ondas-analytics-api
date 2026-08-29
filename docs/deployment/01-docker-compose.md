@@ -151,4 +151,6 @@ Este ejemplo expone el API en claro en el puerto 3000. Para un entorno público:
   procedimiento de revocación.
 
 El despliegue en el servidor de producción está descrito en el
-[ejemplo 2](02-nginx-pm2.md).
+[ejemplo 2](02-nginx-pm2.md), y la monitorización con Prometheus y Grafana
+—perfil `monitoring` de este mismo `docker-compose.yml`— en el
+[ejemplo 3](03-monitoring.md).

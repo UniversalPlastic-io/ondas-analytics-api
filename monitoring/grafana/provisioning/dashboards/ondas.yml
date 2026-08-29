@@ -1,0 +1,12 @@
+apiVersion: 1
+providers:
+  - name: ONDAs
+    orgId: 1
+    folder: ONDAs
+    type: file
+    disableDeletion: false
+    # The dashboard is versioned in git; edits made in the UI are overwritten on
+    # restart on purpose, so the repository stays the source of truth.
+    allowUiUpdates: false
+    options:
+      path: /var/lib/grafana/dashboards
